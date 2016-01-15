@@ -1,0 +1,1368 @@
+<msgs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="./msgs.xsd">
+	<!-- http://www.cablelabs.com/specifications/OC-SP-CCIF2.0-I25-120531.pdf  -->
+	<msg package="org.himalay.ccif" type="MacAddress">
+		<byteArray name="data" length="6"/>
+	</msg>
+	<msg type="APDUHeader" package="org.himalay.ccif">
+	<ui24 name="messageType"></ui24>
+    </msg>
+   
+    <msg package="org.himalay.ccif" type="IPddress">
+		<byteArray name="data" length="6"/>
+</msg>	
+
+	<msg type="APDUGeneric" package="org.himalay.ccif" predicate="default"
+		base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<byteArray name="data" length="FIRST_UI8" />
+	</msg>
+	<msg type="ProfileInq" package="org.himalay.ccif" predicate="0x9F8010"
+		base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+	</msg>
+	<msg type="CaDescriptor" package="org.himalay.ccif">
+		
+    </msg>	
+	<msg type="ProfileReply" package="org.himalay.ccif" predicate="0x9F8011"
+		base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<byteArray name="data" length="FIRST_UI8" />
+	</msg>
+
+	<msg type="ProfileChanged" package="org.himalay.ccif" predicate="0x9F8012"
+		base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+	</msg>
+
+	<msg type="ServerQuery" package="org.himalay.ccif" predicate="0x9F8022"
+		base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="txnNumber" />
+		<byteArray name="headerFileName" length="FIRST_UI16" />
+		<byteArray name="URL" length="FIRST_UI16" />
+	</msg>
+
+	<msg type="ServerReply" package="org.himalay.ccif" predicate="0x9F8023"
+		base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="txnNumber" />
+		<ui8 name="fileStatus" />
+		<byteArray name="headerFileName" length="FIRST_UI16" />
+		<byteArray name="URL" length="FIRST_UI16" />
+	</msg>
+
+	<msg type="CaInfo" package="org.himalay.ccif">
+		<ui8 name="caPmtId" />
+		<byteArray length="EOS" name="CaDescriptors" />
+	</msg>
+	<msg type="ProgramInfo" package="org.himalay.ccif">
+		<bitField size="2" name="bf1">
+			<bits mask="1111000000000000" name="reserved2" />
+			<bits mask="0000111111111111" name="programInfoLength" />
+		</bitField>
+		<complex type="CaInfo" name="programInfo" length="$programInfoLength" />
+	</msg>
+	<msg type="ElementaryStreamInfo" package="org.himalay.ccif">
+		<ui8 name="streamType" />
+		<bitField size="2" name="bf1">
+			<bits mask="1110000000000000" name="reserved2" />
+			<bits mask="0001111111111111" name="elementaryStreamInfoLength" />
+		</bitField>
+		<complex type="CaInfo" name="caInfo" length="$elementaryStreamInfoLength" />
+	</msg>
+	<msg type="CaEntry" package="org.himalay.ccif">
+		<bitField size="2" name="bf1">
+			<bits mask="1110000000000000" name="reserved" />
+			<bits mask="0001111111111111" name="elementaryPid" />
+		</bitField>
+		<bitField size="1" name="bf2">
+			<bits mask="10000000" name="caEnableFlag" />
+			<bits mask="01111111" name="caEnable" />
+		</bitField>
+
+	</msg>
+	<msg type="CaPmtReply_1_2" package="org.himalay.ccif" predicate="0x129F8033"
+		base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui16 name="programNumber" />
+		<bitField size="1" name="bf1">
+			<bits mask="11000000" name="reserved1" />
+			<bits mask="00111110" name="versionNumber" />
+			<bits mask="00000001" name="currentNext" />
+		</bitField>
+		<bitField size="1" name="bf2">
+			<bits mask="10000000" name="caEnableFlag" />
+			<bits mask="01111111" name="caEnable" />
+		</bitField>
+		<array type="CaEntry" spread="EOS" name="CaEntries" />
+	</msg>
+	<msg type="CaPmtReply_2_1" package="org.himalay.ccif" predicate="0x219F8033"
+		base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="programIndex" />
+		<ui8 name="txnId" />
+		<ui8 name="ltsid" />
+		<ui16 name="programNumber" />
+		<ui16 name="sourceId" />
+		<bitField size="1" name="bf1">
+			<bits mask="11000000" name="reserved1" />
+			<bits mask="00111110" name="versionNumber" />
+			<bits mask="00000001" name="currentNext" />
+		</bitField>
+		<bitField size="1" name="bf2">
+			<bits mask="10000000" name="caEnableFlag" />
+			<bits mask="01111111" name="caEnable" />
+		</bitField>
+		<array type="CaEntry" spread="EOS" name="CaEntries" />
+	</msg>
+
+
+	<msg type="HTMLCapabilities" package="org.himalay.ccif">
+		<ui8 name="linkSupport" />
+		<ui8 name="tableSupport" />
+		<ui8 name="listSupport" />
+		<ui8 name="imageSupport" />
+	</msg>
+	<msg type="ApplicationInfoReqest" package="org.himalay.ccif"
+		predicate="0x9F8020" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui16 name="displayRow" />
+		<ui16 name="displayColumns" />
+		<ui8 name="verticalScrolling" />
+		<ui8 name="horizontalScrolling" />
+		<ui8 name="dataEntrySupport" />
+		<ui8 name="HTMLSupport" />
+		<complex expression="if (HTMLSupport == 1)" type="HTMLCapabilities"
+			name="htmlCapabilities" />
+	</msg>
+
+	<msg type="IPV4Address" package="org.himalay.ccif">
+		<byteArray name="data" length="4" />
+	</msg>
+	<msg type="IPV6Address" package="org.himalay.ccif">
+		<byteArray name="data" length="16" />
+	</msg>
+	<msg type="ByteArrayWrapper_ui8" package="org.himalay.ccif">
+		<byteArray name="data" length="FIRST_UI8" />
+	</msg>
+	<msg type="ServiceMpegPid" package="org.himalay.ccif">
+		<bitField size="2" name="bf1">
+			<bits mask="1110000000000000" name="reserved" />
+			<bits mask="0001111111111111" name="pid" />
+		</bitField>
+	</msg>
+	<msg type="ServiceIPUnicast" package="org.himalay.ccif">
+		<complex type="MacAddress" name="macAddress" />
+		<byteArray name="optionaData" length="FIRST_UI8" />
+	</msg>
+	<msg type="ServiceIPMulticast" package="org.himalay.ccif">
+		<byteArray name="multicastGroupId" length="4" />
+	</msg>
+	<msg type="ServiceSocket" package="org.himalay.ccif">
+		<ui8 name="protocolFlag" />
+		<ui16 name="localPort" />
+		<ui16 name="remotePort" />
+		<ui8 name="remoteAddressType" />
+		<complex type="ByteArrayWrapper_ui8" expression="if (remoteAddressType==0x00)"
+			name="name" />
+		<complex type="IPV4Address" expression="if (remoteAddressType==0x01)"
+			name="ipV4Address" />
+		<complex type="IPV6Address" expression="if (remoteAddressType==0x02)"
+			name="ipV6Address" />
+	</msg>
+	<msg type="APDUFlowConf_Detail" package="org.himalay.ccif">
+		<ui24 name="flowId" />
+		<ui8 name="serviceType" />
+		<complex type="ServiceIPUnicast" expression="if (serviceType==0x01)"
+			name="ipUnicast" />
+		<complex type="ServiceIPMulticast" expression="if (serviceType==0x02)"
+			name="ipMulticast" />
+		<complex type="ServiceSocket" expression="if (serviceType==0x04)"
+			name="socket" />
+	</msg>
+	<msg type="NewFlowConfirm" package="org.himalay.ccif"
+		predicate="0x9F8E01" base="APDUBase_1" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="statusField" />
+		<ui8 name="flowsRemaining" />
+		<complex type="APDUFlowConf_Detail" expression="if (statusField==0x00)"
+			name="flowDetails" />
+	</msg>
+	<msg type="NewFlowRequest" package="org.himalay.ccif"
+		predicate="0x9F8e00" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="serviceType" />
+		<complex type="ServiceMpegPid" expression="if (serviceType==0x00)"
+			name="mpegSection" />
+		<complex type="ServiceIPUnicast" expression="if (serviceType==0x01)"
+			name="ipUnicast" />
+		<complex type="ServiceIPMulticast" expression="if (serviceType==0x02)"
+			name="ipMulticast" />
+		<complex type="ServiceSocket" expression="if (serviceType==0x04)"
+			name="socket" />
+	</msg>
+	<msg type="programCnfMsg" package="org.himalay.ccif">
+		<ui8 name="purchaseType" />
+		<ui16 name="purchasePrice" />
+		<ui8 name="purchaseValidation" />
+		<ui32 name="expirationdatee" />
+		<ui32 name="ProgramStartTim" />
+		<ui16 name="initialFreepreviewDuration" />
+		<ui16 name="anyTimeFreepreviewDuration" />
+		<byteArray length="FIRST_UI8" name="data"/>
+		<byteArray length="FIRST_UI8" name="data1"/>
+		<array type="CaDescriptor" spread="EOS" name="descriptors" />
+		
+</msg>	
+<msg type="ProgramCnf" package="org.himalay.ccif"
+		predicate="0x9F8F01" base="APDUBase" header="header">
+	     <complex type="APDUHeader" name="header" />            
+		<ui8 name="length" />
+		<ui8 name="transactionId" />
+		<ui8 name="statusField" />
+		<inline type="statusfld" expression="if (statusField==0x00)">
+		<array type="programCnfMsg" spread="EOS" name="pgmmsg" />
+		</inline>
+</msg>
+<msg type="ProgramReq" package="org.himalay.ccif"
+		predicate="0x9F8F00" base="APDUBase" header="header">
+	    <complex type="APDUHeader" name="header" />                   
+		<ui8 name="length" />
+		<ui8 name="transactionId" />
+		<ui16 name="transportStreamId" />
+		<ui16 name="program_number" />
+		<ui16 name="sourceId" />
+		<ui16 name="eventId" />
+		<ui8 name="currentNextIndicator" />
+		<bitField name="bf1" size="1">
+		 <bits name="reserved" mask="1111 1110"/>
+		 <bits name="currentNext" mask="0000 0001"/> 
+		</bitField>
+		<array type="CaDescriptor" spread="EOS" name="descriptors" />
+		
+</msg>
+<msg type="codeVersionTableMsg" package="org.himalay.ccif">
+		<ui8 name="purchaseType" />
+		<ui16 name="purchasePrice" />
+		<complex type="DescriptionData" name="videoFormat" />	
+		
+</msg>
+<msg type="DescriptionData" package="org.himalay.ccif">
+		
+</msg>	
+<msg type="codeVersionTable1_2" package="org.himalay.ccif"
+		predicate="0x9F9C02" base="APDUBase" header="header">
+	      <complex type="APDUHeader" name="header" />              
+		<ui8 name="length" />
+		<ui8 name="configurationCountChange" />
+		<ui8 name="statusField" />
+		<array type="codeVersionTableMsg" spread="EOS" name="pgmmsg" />
+		<bitField size="1" name="bf1">
+			<bits mask="1111 0000" name="download_type" />
+			<bits mask="0000 1111" name="downloadCommand" />
+		</bitField>
+	<inline type="statusfld" expression="if (getDownload_type()==0x00)">
+		<ui16 name="frequencyVector" />
+		<ui8 name="modulationType" />
+		<bitField size="2" name="bf1">
+			<bits mask="1110 0000 0000 0000" name="reserved" />
+			<bits mask="0001 1111 1111 1111" name="pid" />
+		</bitField>
+	</inline>
+	<inline type="statusfld2" expression="if (getDownload_type()==0x01)">
+	    <complex type="MacAddress" name="mcAddress" />
+	    <complex type="IPddress" name="sourceIpAddress" />
+		<complex type="IPddress" name="destinationIpAddress" />
+		<ui16 name="sourcePortNumber" />
+		<ui16 name="destinatioPortNumber" />
+		<ui16 name="applicationId" />
+		<ui8 name="modulationType" />
+		<bitField size="2" name="bf2">
+			<bits mask="0001 1111 1111 1111" name="pid" />
+		</bitField>
+	</inline>
+	<inline type="statusfld3" expression="if (getDownload_type()==0x02)">
+	     <complex type="IPddress" name="ftpServerAddress" />
+	</inline>	
+	<byteArray length="FIRST_UI8" name="codeFileByte"/>
+	<complex type="CodeVeriFicationCertiFication" name="codeVeriFicationCertiFication" />
+</msg>
+<msg type="CodeVeriFicationCertiFication" package="org.himalay.ccif">
+		
+</msg>
+<msg type="codeVersionTable1_3" package="org.himalay.ccif"
+		predicate="0x9F9C02" base="APDUBase_1" header="header">
+	      <complex type="APDUHeader" name="header" />                   
+		<ui8 name="length" />
+		<ui8 name="configurationCountChange" />
+		<ui8 name="statusField" />
+		<array type="codeVersionTableMsg" spread="EOS" name="pgmmsg" />
+		<bitField size="1" name="bf1">
+			<bits mask="1111 0000" name="download_type" />
+			<bits mask="0000 1111" name="downloadCommand" />
+		</bitField>
+	<inline type="statusfld" expression="if (getDownload_type()==0x00)">
+		<ui16 name="frequencyVector" />
+		<ui8 name="modulationType" />
+		<bitField size="2" name="bf1">
+			<bits mask="1110 0000 0000 0000" name="reserved" />
+			<bits mask="0001 1111 1111 1111" name="pid" />
+		</bitField>
+	</inline>
+	<inline type="statusfld2" expression="if (getDownload_type()==0x01)">
+	    <complex type="MacAddress" name="mcAddress" />
+	    <complex type="IPddress" name="sourceIpAddress" />
+		<complex type="IPddress" name="destinationIpAddress" />
+		<ui16 name="sourcePortNumber" />
+		<ui16 name="destinatioPortNumber" />
+		<ui16 name="applicationId" />
+		<ui8 name="modulationType" />
+		<bitField size="2" name="bf2">
+			<bits mask="0001 1111 1111 1111" name="pid" />
+		</bitField>
+	</inline>
+	<inline type="statusfld3" expression="if (getDownload_type()==0x02)">
+	     <complex type="IPddress" name="ftpServerAddress" />
+	</inline>	
+	<byteArray length="FIRST_UI8" name="codeFileByte"/>
+	<complex type="CodeVeriFicationCertiFication" name="codeVeriFicationCertiFication" />
+</msg>
+<msg type="CaPmtSMode1_2" package="org.himalay.ccif" predicate="0x219F8032"
+		base="APDUBase" header="header">
+		 <complex type="APDUHeader" name="header" />     
+				<ui8 name="length" />
+				<ui8 name="caPmtlisMngement" />
+		<ui16 name="programNumber" />
+		<bitField size="1" name="bf1">
+			<bits mask="1100 0000" name="reserved1" />
+			<bits mask="0011 1110" name="versionNumber" />
+			<bits mask="00000001" name="currentNext" />
+		</bitField>
+		<bitField size="2" name="bf2">
+			<bits mask="1111 0000 1000 0000" name="reserved" />
+			<bits mask="0000 1111 1111 1111" name="programInfoLength" />
+		</bitField>
+		<inline type="StatusfieldCheck" expression="if(getProgramInfoLength() != 0)" >
+		   <ui8 name="caPmtCmdId" />
+		   <array type="CaDescriptor" spread="EOS" name="programInfoLength" />
+		</inline>
+		
+		<array type="CaPmtModeMsg" spread="EOS" name="CaEntries" />
+	</msg>
+    <msg type="CaPmtModeMsg" package="org.himalay.ccif">
+                  
+		<ui8 name="streamType" />
+		<bitField size="2" name="bf2">
+			<bits mask="1111 0000 1000 0000" name="reserved" />
+			<bits mask="0000 1111 1111 1111" name="esInfoLength" />
+		</bitField>
+		<bitField name="bf3" size="2">
+		     <bits name="reserved1" mask="1110 0000 0000 0000"/>
+		     <bits name="elementryPid" mask="0001 1111 1111 1111"/>
+	  </bitField>
+	  <inline type="esfieldCheck" expression="if(getEsInfoLength()!= 0)" >
+		   <ui8 name="caPmtCmdId" />
+		   <array type="CaDescriptor" spread="EOS" name="programInfoLength" />
+		</inline>
+</msg>
+<msg type="DviStatusReport" package="org.himalay.ccif" >
+	<bitField size="1" name="bf1">
+			<bits mask="1110 0000" name="reserved" />
+			<bits mask="0001 1000" name="connectionStatus" />
+			<bits mask="0000 0100" name="hostHdcpStatus" />
+			<bits mask="0000 0011" name="deviceHdcpStatus"/>
+	</bitField>	
+	<complex type="VideoFormat" name="videoFormat" />
+</msg>	
+<msg type="VideoFormat" package="org.himalay.ccif" >
+		<ui16 name="horizontalLine" />
+		<ui16 name="verticalline" />
+		<ui8 name="frameRate" />
+		<bitField size="1" name="bf1">
+			<bits mask="1100 0000" name="aspectRatio" />
+			<bits mask="0010 0000" name="progInterType" />
+			<bits mask="0001 1111" name="reserved" />
+		</bitField>
+</msg>	
+<msg type="HdmiStatusReport" package="org.himalay.ccif" >
+	<bitField size="1" name="bf1">
+			<bits mask="1000 0000" name="deviceType" />
+			<bits mask="0110 0000" name="colorSpace" />
+			<bits mask="0001 1000" name="connectionStatus" />
+			<bits mask="0000 0100" name="HostHdcpStatus"/>
+			<bits mask="0000 0011" name="deviceHdcpStatus"/>
+	</bitField>	
+	<complex type="VideoFormat" name="vdoFormat" />
+	<complex type="AudioFormat" name="adoFormat" />
+</msg>	
+
+<msg type="AudioFormat" package="org.himalay.ccif" >
+		<bitField size="1" name="bf1">
+			<bits mask="1100 0000" name="audioSampleSize" />
+			<bits mask="0011 1000" name="audioFormat" />
+			<bits mask="0000 0111" name="audioSamplefreq" />
+		</bitField>
+</msg>
+<msg type="InbandTuneReq" package="org.himalay.ccif" predicate="0x9F8408"
+		base="APDUBase" header="header">
+		 <complex type="APDUHeader" name="header" />     
+		<ui8 name="length" />
+		<ui8 name="tuneType" />
+		<inline type="first" expression="if(tuneType ==0x00)" >
+		   <ui16 name="sourceid" />
+		</inline>
+		<inline type="second" expression="if(tuneType ==0x01)" >
+		    <ui16 name="tuneFrequencyValu" />
+		   <ui8 name="modulationvalue" />
+		</inline>
+</msg>	
+<msg type="HostPropertiesReq" package="org.himalay.ccif" predicate="0x9F9F01"
+		base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />   
+	   <ui8 name="length" />
+	   <array type="HostPropertiesReqMsg" spread="EOS" name="hpr" />
+</msg>
+<msg type="HostPropertiesReqMsg" package="org.himalay.ccif">
+	   <byteArray length="FIRST_UI8" name="data"/>
+</msg>
+<msg type="HostPropertiesReply" package="org.himalay.ccif" predicate="0x9F9F02"
+		base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />   
+	   <ui8 name="length" />
+	   <array type="HostPropertiesReplyMsg" spread="EOS" name="hpr" />
+</msg>	
+<msg type="HostPropertiesReplyMsg" package="org.himalay.ccif">
+	   <byteArray length="FIRST_UI8" name="propertyKeyByte"/>
+	   <byteArray length="FIRST_UI8" name="propertyValueByte"/>
+</msg>
+<msg type="snmpReq" package="org.himalay.ccif" predicate="0x9FA000"
+		base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />   
+		<ui8 name="length" />
+	   <byteArray length="FIRST_UI8" name="snmpMessage"/>
+</msg>
+<msg type="snmpReply" package="org.himalay.ccif" predicate="0x9FA001"
+		base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />   
+		<ui8 name="length" />
+	   <byteArray length="FIRST_UI8" name="snmpResponse"/>
+</msg>	
+<msg type="GetRootOidReq" package="org.himalay.ccif" predicate="0x9FA002"
+		base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />   
+		<ui8 name="length" />
+</msg>	
+<msg type="GetRootOidReqply" package="org.himalay.ccif" predicate="0x9FA003"
+		base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />   
+		<ui8 name="length" />
+	   <byteArray length="FIRST_UI8" name="oidBytes"/>
+</msg>	
+<msg type="CaPmtMMode2_1" package="org.himalay.ccif" predicate="0x219F8032"
+		base="APDUBase_1" header="header">
+		<complex type="APDUHeader" name="header" />   
+				<ui8 name="length" />
+		<ui8 name="programIndex" />
+		<ui8 name="txnId" />
+		<ui8 name="ltsid" />
+		<ui16 name="programNumber" />
+		<ui16 name="sourceId" />
+		<ui8 name="caPmtCmdId" />
+		<bitField size="2" name="bf2">
+			<bits mask="1111 0000 1000 0000" name="reserved" />
+			<bits mask="0000 1111 1111 1111" name="programInfoLength" />
+		</bitField>
+		<inline type="StatusfieldCheck" expression="if(getProgramInfoLength()!= 0)" >
+		   <array type="CaDescriptor" spread="EOS" name="prgmInfoLength" />
+		</inline>
+		<array type="CaPmtModeMsg" spread="EOS" name="CaEntries" />
+	</msg>	
+	
+<msg type="PurchaseReq" package="org.himalay.ccif"
+		predicate="0x9F8F02" base="APDUBase" header="header">
+        <complex type="APDUHeader" name="header" />             
+		<ui8 name="length" />
+		<ui8 name="transactionId" />
+		<ui16 name="optionId" />
+		<byteArray length="FIRST_UI8" name="pinCodeLength"/>
+</msg>
+<msg type="PCnf" package="org.himalay.ccif"
+		predicate="0x9F8F03" base="APDUBase" header="header">
+	    <complex type="APDUHeader" name="header" />                
+		<ui8 name="length" />
+		<ui8 name="transactionId" />
+		<ui8 name="optionId" />
+		<ui8 name="IPPVslotId" />
+		<ui8 name="statusField" />
+		<ui8 name="statusRegister" />
+		<byteArray length="FIRST_UI8" name="commentLength"/>
+</msg>
+<msg type="CancelReq" package="org.himalay.ccif"
+		predicate="0x9F8F04" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />                    
+		<ui8 name="length" />
+		<ui8 name="IPPVslotId" />
+		<byteArray length="FIRST_UI8" name="pinCodeLength"/>
+</msg>
+<msg type="CancelCnf" package="org.himalay.ccif"
+		predicate="0x9F8F05" base="APDUBase" header="header">
+	    <complex type="APDUHeader" name="header" />                
+		<ui8 name="length" />
+		<ui8 name="IPPVslotId" />
+		<ui8 name="statusField" />
+		<ui8 name="statusRegister" />
+		<byteArray length="FIRST_UI8" name="commentLength"/>
+</msg>
+<msg type="HistoryReq" package="org.himalay.ccif"
+		predicate="0x9F8F06" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />                   
+		<ui8 name="length" />
+		<byteArray length="FIRST_UI8" name="pincodeLength"/>
+</msg>
+<msg type="HistoryCnf" package="org.himalay.ccif"
+		predicate="0x9F8F07" base="APDUBase" header="header">
+	    <complex type="APDUHeader" name="header" />                
+		<ui8 name="length" />
+		<ui8 name="statusField" />
+		<byteArray length="FIRST_UI8" name="commentLength"/>
+		<byteArray length="FIRST_UI8" name="ippvslotNb"/>
+</msg>
+<msg type="DiagnosticCnf" package="org.himalay.ccif"
+		predicate="0x9FDF01" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />                  
+		<ui8 name="length" />
+		<byteArray length="FIRST_UI8" name="numberOfDiag"/>
+</msg>
+<msg type="MemoryReport" package="org.himalay.ccif">
+	    <complex type="APDUHeader" name="header" />               
+		<byteArray length="FIRST_UI8" name="numberOfMemory"/>
+</msg>
+<msg type="MAC_addressReport" package="org.himalay.ccif">
+		<complex type="APDUHeader" name="header" />                  
+		<byteArray length="FIRST_UI8" name="numberOfAddress"/>
+</msg>
+<msg type="FDC_report" package="org.himalay.ccif">
+       <complex type="APDUHeader" name="header" />            
+		<ui16 name="FDC_centerFreq" />
+		<bitField name="bf1" size="1">
+		 <bits name="reserved" mask="1111 1100"/>
+		 <bits name="carrierLockStatus" mask="0000 0010"/> 
+		  <bits name="reserved1" mask="0000 0001"/> 
+		</bitField>
+</msg>
+
+
+<msg type="CurrentChannel" package="org.himalay.ccif">
+		 <complex type="APDUHeader" name="header" />                 
+		<ui16 name="currentChannel" />
+		<bitField name="bf1" size="1">
+		 <bits name="reserved" mask="1100 0000"/>
+		 <bits name="channelType" mask="0010 0000"/> 
+		 <bits name="authorizationFlag" mask="0001 0000"/> 
+		 <bits name="purchasableFlag" mask="0000 1000"/>
+		 <bits name="purchasedFlag" mask="0000 0100"/> 
+		 <bits name="previewFlag" mask="0000 0010"/> 
+		 <bits name="parentalControlFlag" mask="0000 0001"/> 
+		</bitField>
+</msg>
+<msg type="PortReportSMode1394" package="org.himalay.ccif">
+                   
+		<ui16 name="totalNumberOfNodes" />
+		<bitField name="bf1" size="1">
+		 <bits name="reserved" mask="1110 0000"/>
+		 <bits name="loopStatus" mask="0001 0000"/> 
+		 <bits name="rootStatus" mask="0000 1000"/>
+		 <bits name="cycleMasterStatus" mask="0000 0100"/> 
+		 <bits name="port_1ConnectionStatus" mask="0000 0010"/> 
+		 <bits name="port_2ConnectionStatus" mask="0000 0001"/> 
+		</bitField>
+</msg>
+<msg type="PortReportMMode1394" package="org.himalay.ccif">
+	                  
+		<ui16 name="totalNumberOfNodes" />
+		<bitField name="bf1" size="1">
+		 <bits name="reserved" mask="1100 0000"/>
+		  <bits name="loopStatus" mask="0010 0000"/>
+		 <bits name="rootStatus" mask="0001 0000"/> 
+		 <bits name="cycleMasterStatus" mask="0000 1000"/> 
+		 <bits name="host_ad_sourceSelectionStatus" mask="0000 0100"/>
+		 <bits name="port_1ConnectionStatus" mask="0000 0010"/> 
+		 <bits name="port_2ConnectionStatus" mask="0000 0001"/> 
+		</bitField>
+		<byteArray length="FIRST_UI8" name="numberOfConnectedDevices"/>
+</msg>
+<msg type="HostInfoRequest" package="org.himalay.ccif"
+		predicate="0x9F9C00" base="APDUBase" header="header">
+	   <complex type="APDUHeader" name="header" />                
+		<ui8 name="length" />
+		<ui8 name="supportedDownloadType" />
+</msg>
+<msg type="NewFlowRequest1_1and1_2" package="org.himalay.ccif"
+		predicate="0x9F8E00" base="APDUBase_1" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="serviceType" />
+		
+		<complex type="ServiceMpegPid" expression="if (serviceType==0x00)"
+			name="mpegSection" />
+		<complex type="ServiceIPUnicast" expression="if (serviceType==0x01)"
+			name="ipUnicast" />
+		<complex type="ServiceIPMulticast" expression="if (serviceType==0x02)"
+			name="ipMulticast" />
+		
+</msg>
+
+<msg type="NewFlowRequest1_3and1_4" package="org.himalay.ccif"
+		predicate="0x9F8E00" base="APDUBase_2" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="serviceType" />
+		<complex type="ServiceMpegPid" expression="if (serviceType==0x00)"
+			name="mpegSection" />
+		<complex type="ServiceIPUnicast" expression="if (serviceType==0x01)"
+			name="ipUnicast" />
+		<complex type="ServiceIPMulticast" expression="if (serviceType==0x02)"
+			name="ipMulticast" />
+		
+</msg>
+<msg type="LostFlowInd" package="org.himalay.ccif"
+		predicate="0x9F8E04" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui24 name="flowId" />
+		<ui8 name="reasonField" />
+</msg>
+<msg type="Inquire_DSG_Mode1234" package="org.himalay.ccif"
+		predicate="0x9F8E06" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+</msg>
+
+<msg type="Send_DCD_info" package="org.himalay.ccif"
+		predicate="0x9F8E0B" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="operationalMode" />
+		<ui8 name="messageType" />
+			
+</msg>
+<msg type="CpDataReqData2_1" package="org.himalay.ccif"
+		predicate="0x9F9002" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="cpSystemId" />
+     <array type="CpDataReqMsg" spread="EOS" name="cadatanbr" />
+	 <byteArray length="FIRST_UI8" name="DataType_id"/>		
+</msg>
+<msg type="CpDataReqTransMission2_1" package="org.himalay.ccif"
+		predicate="0x9F9002" base="APDUBase_1" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="cpSystemId" />
+     <array type="CpDataReqMsg" spread="EOS" name="cadatanbr" />
+	 <byteArray length="FIRST_UI8" name="DataType_id"/>		
+</msg>
+<msg type="CpDataCnfKey" package="org.himalay.ccif"
+		predicate="0x9F9003" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="cpSystemId" />
+     <array type="CpDataReqMsg" spread="EOS" name="cadatanbr" />
+	 
+</msg>
+<msg type="CpDataCnfdata" package="org.himalay.ccif"
+		predicate="0x9F9003" base="APDUBase_1" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="cpSystemId" />
+     <array type="CpDataReqMsg" spread="EOS" name="cadatanbr" />
+	 
+</msg>
+<msg type="CpDataReqMsg" package="org.himalay.ccif">
+        <ui8 name="dataTypeId" />
+	   <byteArray length="FIRST_UI8" name="dataType"/>
+	   <byteArray length="FIRST_UI8" name="DataType_id"/>
+</msg>	
+
+<msg type="FirmwareUpgrade" package="org.himalay.ccif"
+		predicate="0x9F9995" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="upgrade_source" />
+		<ui16 name="download_time" />
+		<ui8 name="download_timeout_period" />
+		<ui16 name="length1" />
+		<byteArray length="FIRST_UI8" name="texts"/>
+</msg>
+<msg type="FirmwareUpgradeReply" package="org.himalay.ccif"
+		predicate="0x9F9996" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+</msg>
+<msg type="FirmwareUpgradeComplete" package="org.himalay.ccif"
+		predicate="0x9F9997" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="resetRequestStatus" />
+</msg>
+<msg type="Inquire_DSG_mode" package="org.himalay.ccif"
+		predicate="0x9F9100" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+</msg>
+<msg type="Set_DSG_mode" package="org.himalay.ccif"
+		predicate="0x9F9101" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="operationalMode" />
+</msg>
+<msg type="Send_DSD_Info" package="org.himalay.ccif"
+		predicate="0x9F9105" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />                   ////////////////////////////////////
+		<ui8 name="length" />
+		<ui8 name="DCD_message" />
+</msg>
+<msg type="ADSG_Filter" package="org.himalay.ccif">
+		
+		<ui8 name="tunnelID" />
+		<ui8 name="tunnelPriority" />
+		<ui48 name="dsg_mac_address" />
+		<ui32 name="source_IP_address" />
+		<ui32 name="source_IP_mask" />
+		<ui32 name="destination_IP_address" />
+		<ui16 name="destination_port_start" />
+		<ui16 name="destination_port_end" />
+</msg>
+
+<msg type="DSG_error" package="org.himalay.ccif"
+		predicate="0x9F9102" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />                         
+		<ui8 name="length" />
+		<ui8 name="errorStatus" />
+</msg>
+<msg type="DSG_packetError" package="org.himalay.ccif"
+		predicate="0x9F8E08" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />                        
+		<ui8 name="length" />
+		<ui8 name="transaction_id" />
+</msg>
+<msg type="hostResetVectorAck" package="org.himalay.ccif"
+		predicate="0x9F9E01" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />                  
+		<ui8 name="length" />
+		<ui8 name="transaction_id" />
+</msg>
+<msg type="SAS_data_cnf" package="org.himalay.ccif"
+		predicate="0x9F9A04" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="transaction_nb" />
+</msg>
+<msg type="SAS_serverQuery" package="org.himalay.ccif"
+		predicate="0x9F9A05" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="transaction_nb" />
+</msg>
+<msg type="SAS_serverReply" package="org.himalay.ccif"
+		predicate="0x9F9A06" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="transaction_nb" />
+		<byteArray length="FIRST_UI16" name="messages"/>
+</msg>
+<msg type="SAS_asyncMsg" package="org.himalay.ccif"
+		predicate="0x9F9A07" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="message_nb" />
+		<byteArray length="FIRST_UI16" name="messages"/>
+</msg>
+<msg type="OpenHoming" package="org.himalay.ccif"
+		predicate="0x9F9990" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+</msg>
+<msg type="OpenHomingReply" package="org.himalay.ccif"
+		predicate="0x9F9992" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+</msg>
+<msg type="HomingActive" package="org.himalay.ccif"
+		predicate="0x9F9993" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+</msg>
+<msg type="HomingCancelled" package="org.himalay.ccif"
+		predicate="0x9F9991" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+</msg>
+<msg type="HomingComplete" package="org.himalay.ccif"
+		predicate="0x9F9994" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+</msg>
+<msg type="NetAddressReportMsg" package="org.himalay.ccif">
+        <ui8 name="netAddressType" /> 
+	   <byteArray length="FIRST_UI8" name="networkAddresses"/>
+	   <byteArray length="FIRST_UI8" name="SubnetworkAddresses"/>
+ </msg>
+ <msg type="HomeNetworkReport" package="org.himalay.ccif">
+		 <ui8 name="maxClients" /> 
+		  <ui8 name="host_DRM_status" /> 
+	   <array type="HomeNetworkReportMsg" spread="EOS" name="clients" />
+ </msg>
+  <msg type="HomeNetworkReportMsg" package="org.himalay.ccif">
+		 <complex type="MacAddress" name="clientMacAddress" />
+		  <ui8 name="host_DRM_status" /> 
+	   <byteArray length="FIRST_UI8" name="clientsIpAddressByte"/>
+	    <ui8 name="client_DRM_status" /> 
+ </msg>
+ 
+ <msg type="SAS_connectRqst" package="org.himalay.ccif"
+		predicate="0x9F9A00" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui64 name="privateHostApplicationID" />
+</msg>
+ <msg type="SAS_connectCnf" package="org.himalay.ccif"
+		predicate="0x9F9A01" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui64 name="privateHostApplicationID" />
+		<ui8 name="SASSessionStatus" />
+</msg>
+<msg type="SAS_data_rqst" package="org.himalay.ccif"
+		predicate="0x9F9A02" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+</msg>
+<msg type="SAS_data_av" package="org.himalay.ccif"
+		predicate="0x9F9A03" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="SAS_dataStatus" />
+		<ui8 name="transaction_nb" />
+</msg>
+<msg type="FAT_statusReport" package="org.himalay.ccif">
+		<bitField name="bf1" size="1">
+		<bits name="reserved" mask="11110000"/>
+		<bits name="PCR_lock" mask="00001000"/> 
+		<bits name="modulationMode" mask="00000110"/>
+		<bits name="carrierLockStatus" mask="00000001"/> 
+		</bitField>
+      <ui16 name="SNR" />
+	  <ui16 name="signalLevel" />
+</msg>
+
+<msg type="CurrentChannelReport" package="org.himalay.ccif">
+		<bitField name="bf1" size="1">
+		<bits name="reserved" mask="11000000"/>
+		<bits name="channelType" mask="00100000"/> 
+		<bits name="authorizationFlag" mask="00010000"/>
+		<bits name="purchasableFlag" mask="00001000"/>
+		<bits name="purchasedFlag" mask="00000100"/> 
+		<bits name="previewFlag" mask="00000010"/>
+		<bits name="parentalControlFlag" mask="00000001"/>
+		</bitField>
+         <ui16 name="currentChannel" /> 
+</msg>
+<msg type="PortReport1394_S_Mode" package="org.himalay.ccif">
+		<bitField name="bf1" size="1">
+		<bits name="reserved" mask="11100000"/>
+		<bits name="loopStatus" mask="00010000"/>
+		<bits name="rootStatus" mask="00001000"/>
+		<bits name="cycleMasterStatus" mask="00000100"/> 
+		<bits name="port_1_ConnectionStatus" mask="00000010"/>
+		<bits name="port_2_ConnectionStatus" mask="00000001"/>
+		</bitField>
+         <ui16 name="totalNumberOfNodes" /> 
+</msg>
+<msg type="PortReport1394_M_Mode" package="org.himalay.ccif">
+		<bitField name="bf1" size="1">
+		<bits name="reserved" mask="11000000"/>
+		<bits name="loopStatus" mask="00100000"/> 
+		<bits name="rootStatus" mask="00010000"/>
+		<bits name="cycleMasterStatus" mask="00001000"/>
+		<bits name="host_ad_sourceSelectionStatus" mask="00000100"/> 
+		<bits name="port_1_ConnectionStatus" mask="00000010"/>
+		<bits name="port_2_ConnectionStatus" mask="00000001"/>
+		</bitField>
+        <ui16 name="totalNumberOfNodes" /> 
+		<array type="PortReport1394_MMsg" spread="EOS" name="connectedDevices" />
+</msg>
+<msg package="org.himalay.ccif" type="Eui64">
+		<byteArray name="data" length="8"/>
+	</msg>
+<msg type="PortReport1394_MMsg" package="org.himalay.ccif">
+		<bitField name="bf1" size="1">
+		<bits name="deviceSubUnitType" mask="1111 1000"/>
+		<bits name="DeviceSourceSelectionStatus" mask="0000 0100"/> 
+		<bits name="reserved" mask="0000 0011"/>
+		</bitField>
+       <complex type="Eui64" name="eui64" />
+</msg>
+<msg type="ECM_statusReport" package="org.himalay.ccif">
+		 <ui16 name="downstreamCenterFreq" /> 
+		  <ui16 name="downstreamPowerLevel" /> 
+		<bitField name="bf1" size="1">
+		<bits name="downstreamCarrierLockStatus" mask="10000000"/>
+		<bits name="reserved" mask="01100000"/> 
+		<bits name="channel_s_cdmaStatus" mask="00011000"/>
+		<bits name="upstreamModulationType" mask="00000111"/>
+		</bitField>
+        <ui16 name="upstreamXmtCenterFreq" /> 
+	    <ui16 name="upstreamPowerLevel" /> 
+		<ui8 name="upstreamSymbolRate" /> 
+</msg>
+<msg type="RDC_report" package="org.himalay.ccif">
+		 <ui16 name="RDC_centerFreq" /> 
+		  <ui8 name="RDC_transmitterPowerLevel" /> 
+		<bitField name="bf1" size="1">
+		<bits name="reserved" mask="11111100"/> 
+		<bits name="RDC_dataRate" mask="00000011"/>
+		</bitField>
+ </msg>
+<msg type="NetAddressReport" package="org.himalay.ccif">
+	  <array type="NetAddressReportMsg" spread="EOS" name="ntAddrs" />
+ </msg>
+<msg type="SoftwareVerReportS_Mode" package="org.himalay.ccif">
+		<array type="softwareVerSMsg" spread="EOS" name="applicationsInReport" />
+		
+</msg>
+<msg type="softwareVerSMsg" package="org.himalay.ccif">
+		<ui16 name="applicationVersionNumber" />
+	   <ui8 name="ApplicationStatusfield" />
+	   <byteArray length="FIRST_UI8" name="applicationNameByte"/>
+	   <byteArray length="FIRST_UI8" name="applicationSignbyte"/>
+</msg>
+<msg type="SoftwareVerReportM_Mode" package="org.himalay.ccif">
+		<array type="softwareVerMMsg" spread="EOS" name="applicationsInReport" />
+</msg>
+<msg type="softwareVerMMsg" package="org.himalay.ccif">
+		
+	   <ui8 name="ApplicationStatusflag" />
+	   <byteArray length="FIRST_UI8" name="applicationNameByte"/>
+	   <byteArray length="FIRST_UI8" name="applicationSignbyte"/>
+	   <byteArray length="FIRST_UI8" name="applicationVersionbyte"/>
+</msg>
+<msg type="FirmWareDate" package="org.himalay.ccif">
+		<ui16 name="year" />
+		<ui8 name="month" />
+		<ui8 name="date" />
+</msg>
+<msg type="FirmwareVerReportS_Mode" package="org.himalay.ccif">
+		
+		<ui16 name="firmwareVersion" />
+		<complex type="FirmWareDate" name="fwareDate" />
+		
+</msg>
+
+<msg type="FirmwareVerReportM_Mode" package="org.himalay.ccif">
+      <byteArray length="FIRST_UI8" name="firmWareVersionCharacter"/>
+		<complex type="FirmWareDate" name="fwareDate" />
+		
+</msg>
+<msg type="AcOutlet" package="org.himalay.ccif">
+		<ui8 name="acOutletControl" />
+</msg>
+<msg type="Language" package="org.himalay.ccif">
+		<ui24 name="lanuageControl" />
+</msg>
+<msg type="RatingRegion" package="org.himalay.ccif">
+		<ui8 name="ratingRegionSetting" />
+</msg>
+<msg type="ResetPin" package="org.himalay.ccif">
+		<ui8 name="resetpinControl" />
+</msg>
+<msg type="CableUrls" package="org.himalay.ccif">
+		<array type="cblurlmsg" spread="EOS" name="CaEntries" />
+</msg>
+<msg type="cblurlmsg" package="org.himalay.ccif">
+		<ui8 name="urlType" />
+		<byteArray length="FIRST_UI8" name="urlchars"/>
+</msg>
+<msg type="EA_locationCode" package="org.himalay.ccif">
+		<ui8 name="stateCode" />
+		<bitField name="bf1" size="2">
+		<bits name="countySubdivision" mask="1111000000000000"/> 
+		<bits name="reserved" mask="0000110000000000"/>
+		<bits name="countyCode" mask="0000011111111111"/>
+		</bitField>
+</msg>
+<msg type="VctId" package="org.himalay.ccif">
+		<ui16 name="vctId" />
+</msg>
+<msg type="TurnOnChannel" package="org.himalay.ccif">
+		<bitField name="bf1" size="2">
+		<bits name="reserved" mask="1110000000000000"/> 
+		<bits name="turnOnChannelDefined" mask="0001000000000000"/>
+		<bits name="turnOnVirtualChannel" mask="0000111111111111"/>
+		</bitField>
+</msg>
+<msg type="TerminalAssociation" package="org.himalay.ccif">
+		<byteArray length="FIRST_UI16" name="identifierList"/>
+</msg>
+<msg type="cdlGroupId" package="org.himalay.ccif">
+		<ui16 name="groupId" />
+</msg>
+<msg type="ZipCode" package="org.himalay.ccif">
+		<byteArray length="FIRST_UI16" name="zipCodebytes"/>
+</msg>
+<msg type="diagnosticReq_2_Smode" package="org.himalay.ccif">
+		<ui8 name="length" />
+		<byteArray length="FIRST_UI8" name="selfDiagnostics"/>
+</msg>
+<msg type="diagnosticReq_1_Mmode" package="org.himalay.ccif"
+		predicate="0x9FDF00" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />	
+		<ui8 name="length" />
+		<array type="diagnosticReq1mMosemsg" spread="EOS" name="selfDiagnostics" />
+</msg>
+<msg type="diagnosticReq1mMosemsg" package="org.himalay.ccif">
+		<ui8 name="diagnosticid" />
+		<ui8 name="itsid" />
+</msg>
+
+<msg type="diagnosticReqSmodeCnf" package="org.himalay.ccif"
+		predicate="0x9FDF01" base="APDUBase_1" header="header">
+		<complex type="APDUHeader" name="header" />		
+		<ui8 name="length" />
+		<byteArray length="FIRST_UI8" name="selfDiagnostics"/>
+</msg>
+<msg type="diagnosticReqMmodeCnf" package="org.himalay.ccif"
+		predicate="0x9FDF01" base="APDUBase_2" header="header">
+		<complex type="APDUHeader" name="header" />		
+		<ui8 name="length" />
+		<byteArray length="FIRST_UI8" name="selfDiagnostics"/>
+</msg>
+
+<msg type="memoryReportMsg" package="org.himalay.ccif">
+		<ui8 name="memoryType" />
+	   <ui32 name="memorySize" />
+</msg>
+<msg type="flist" package="org.himalay.ccif">
+		
+		<ui8 name="featureId" />
+		<ui16 name="length" />
+		
+</msg>
+<msg type="nOF" package="org.himalay.ccif">
+		
+		<ui8 name="featureId" />
+		<ui8 name="status" />
+		
+</msg>
+<msg type="FeatureParamtersCnf" package="org.himalay.ccif"
+		predicate="0x9F9808" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<array type="nOF" spread="EOS" name="featureList" />
+</msg>
+<msg type="RfOutput_channel" package="org.himalay.ccif">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="outputChannel" />
+		<ui8 name="outputChannelUi" />
+</msg>
+<msg type="PCpin" package="org.himalay.ccif">
+		<byteArray length="FIRST_UI8" name="PCpinList"/>
+</msg>
+<msg type="PCSetting" package="org.himalay.ccif">
+			<ui8 name="PC_factoryReset" />
+			<array type="pcsMsg" spread="EOS" name="featureList" />
+		
+</msg>
+<msg type="pcsMsg" package="org.himalay.ccif">
+		 <bitField name="bf1" size="3">
+		       <bits name="reserved" mask="1111 0000 0000 0000 0000 0000"/>
+		       <bits name="major_channel_number" mask="0000 1111 1111 1100 0000 0000"/>
+			    <bits name="miner_channel_number" mask="0000 0000 0000 0011 1111 1111"/>
+		 </bitField>
+</msg>
+<msg type="PurchasePin" package="org.himalay.ccif">
+		<byteArray length="FIRST_UI16" name="purchagePinList"/>
+</msg>
+<msg type="TimeZone" package="org.himalay.ccif">
+		<ui16 name="timeZoneOffset" />
+</msg>
+<msg type="DaylightSavings_1_1" package="org.himalay.ccif">
+		<ui8 name="daylightSavingsControl" />
+</msg>
+<msg type="DaylightSavings_1_2" package="org.himalay.ccif">
+		<ui8 name="daylightSavingsControl" />
+	<inline type="daylightSaving" expression="if (daylightSavingsControl==0x02)">
+		<ui8 name="daylight_savings_delta" />
+		<ui32 name="daylightSavingsEntryTime" />
+		<ui32 name="daylightSavingsExitTime" />
+    </inline>
+</msg>
+<msg type="EsProfile" package="org.himalay.ccif"
+		predicate="0x9FA014" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="maxNumberOfEs" />
+</msg>
+<msg type="EsProfileCnf" package="org.himalay.ccif"
+		predicate="0x9FA015" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+</msg>
+<msg type="requestPids" package="org.himalay.ccif"
+		predicate="0x9FA016" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="ltsid" />
+		<ui8 name="pidFilteringStatus" />
+</msg>
+<msg type="RequestPidsCnf" package="org.himalay.ccif"
+		predicate="0x9FA017" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="ltsid" />
+		<array type="pids" spread="EOS" name="numOfPids" />
+</msg>
+<msg type="pids" package="org.himalay.ccif">
+		
+		<bitField name="bf1" size="2">
+		            <bits name="zero" mask="1110 0000 0000 0000"/>
+		            <bits name="pid" mask="0001 1111 1111 1111"/>
+	  </bitField>
+</msg>
+<msg type="DeleteFlowReq" package="org.himalay.ccif"
+		predicate="0x9F8E02" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui24 name="flowId" />
+</msg>
+<msg type="DeleteFlowCnf" package="org.himalay.ccif"
+		predicate="0x9F8E03" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui24 name="flowId" />
+		<ui8 name="statusField" />
+</msg>
+
+<msg type="LostFlowCnf" package="org.himalay.ccif"
+		predicate="0x9F8E05" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui24 name="flowId" />
+		<ui8 name="statusField" />
+</msg>
+<msg type="FeatureListReq" package="org.himalay.ccif"
+		predicate="0x9F9802" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+</msg>
+<msg type="FeatureList" package="org.himalay.ccif"
+		predicate="0x9F9803" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<byteArray length="FIRST_UI8" name="featureList"/>
+</msg>
+<msg type="FeatureListCnf" package="org.himalay.ccif"
+		predicate="0x9F9804" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+</msg>
+<msg type="FeatureListChanged" package="org.himalay.ccif"
+		predicate="0x9F9805" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+</msg>
+<msg type="FeatureParamtersReq" package="org.himalay.ccif"
+		predicate="0x9F9806" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+</msg>
+
+<msg type="FeatureParamters_1_4" package="org.himalay.ccif"
+		predicate="0x9F9807" base="APDUBase_1" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<array type="flist" spread="EOS" name="featureList" />
+		
+</msg>
+<msg type="SystemTimeInq" package="org.himalay.ccif"
+		predicate="0x9F8442" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="responseInterval" />
+</msg>
+
+<msg type="OpenSessionRequest" package="org.himalay.ccif">
+		
+		<ui8 name="length" />
+		<ui32 name="resourceIdentifier" />
+</msg>
+<msg type="OpenSessionResponse" package="org.himalay.ccif">
+		
+		<ui8 name="length" />
+		<ui32 name="resourceIdentifier" />
+		<ui8 name="sessionStatus" />
+		<ui16 name="sessionNb" />
+</msg>
+<msg type="CloseSessionRequest" package="org.himalay.ccif"
+		predicate="0x95" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui16 name="sessionNb" />
+</msg>
+<msg type="CloseSessionResponse" package="org.himalay.ccif"
+		predicate="0x96" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="sessionStatus" />
+		<ui16 name="sessionNb" />
+</msg>
+<msg type="SystemTime" package="org.himalay.ccif"
+		predicate="0x9F8443" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui32 name="systemTime" />
+		<ui8 name="GPS_UTCoffset" />
+</msg>
+<msg type="OpenMmiReq" package="org.himalay.ccif"
+		predicate="0x9F8820" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="displayType" />
+		<byteArray length="FIRST_UI16" name="urlBytes"/>
+</msg>
+<msg type="OpenMmiCnf" package="org.himalay.ccif"
+		predicate="0x9F8821" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="dialogNumber" />
+		<ui8 name="openStatus" />
+</msg>
+<msg type="CloseMmiReq" package="org.himalay.ccif"
+		predicate="0x9F8822" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="dialogNumber" />
+</msg>
+<msg type="CloseMmiCnf" package="org.himalay.ccif"
+		predicate="0x9F8823" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="dialogNumber" />
+</msg>
+<msg type="StreamProfile" package="org.himalay.ccif"
+		predicate="0x9FA010" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="maxNumberOfStreams" />
+</msg>
+<msg type="StreamProfileCnf" package="org.himalay.ccif"
+		predicate="0x9FA011" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="NumberOfStreamsUsed" />
+</msg>
+<msg type="ProgramProfile" package="org.himalay.ccif"
+		predicate="0x9FA012" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="maxNumberOfStreams" />
+</msg>
+<msg type="ProgramProfileCnf" package="org.himalay.ccif"
+		predicate="0x9FA013" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+</msg>
+
+<msg type="FeatureParamters_1_3" package="org.himalay.ccif"
+		predicate="0x9F9807" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<byteArray length="FIRST_UI8" name="featureList"/>
+</msg>
+
+
+<msg type="NewFlowConfirm1Type1" package="org.himalay.ccif"
+		predicate="0x9F8E01" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="statusField" />
+		<ui8 name="flowsRemaining" />
+		<inline type="StatusfieldCheck" expression="if (statusField == 0)" >
+		     <ui24 name="flowId" />
+			 <ui8 name="serviceType" />
+			 <inline type="ServiceTypeCheck" expression="if (serviceType==0x01)" >
+			     <ui32 name="ip_address" />
+		     </inline>
+		</inline>
+</msg>
+<msg type="NewFlowConfirm1Type1234" package="org.himalay.ccif"
+		predicate="0x9F8E01" base="APDUBase_2" header="header">
+		<complex type="APDUHeader" name="header" />
+				<ui8 name="length" />
+		<ui8 name="statusField" />
+		<ui8 name="flowsRemaining" />
+		<inline type="StatusfieldCheck" expression="if (statusField == 0)" >
+		     <ui24 name="flowId" />
+			 <ui8 name="serviceType" />
+			 <inline type="ServiceTypeCheck" expression="if (serviceType==0x01)" >
+			     <ui32 name="ip_address" />
+				  <ui8 name="flowType" />
+				  <bitField name="bf1" size="2">
+		            <bits name="flag" mask="1110 0000 0000 0000"/>
+		            <bits name="maxpduSize" mask="0001 1111 1111 1111"/>
+		          </bitField>
+				  <byteArray length="FIRST_UI8" name="optionByte"/>
+		     </inline>
+		</inline>
+</msg>
+
+<msg type="NewFlowConfirm1Type1_5" package="org.himalay.ccif"
+		predicate="0x9F8E01" base="APDUBase_3" header="header">
+		<complex type="APDUHeader" name="header" />
+			<ui8 name="length" />
+		<ui8 name="statusField" />
+		<ui8 name="flowsRemaining" />
+		<inline type="StatusfieldCheck" expression="if (statusField == 0)" >
+		     <ui24 name="flowId" />
+			 <ui8 name="serviceType" />
+			 <inline type="ServiceTypeCheck" expression="if (serviceType==0x01)" >
+			     <ui32 name="ip_address" />
+				  <ui8 name="flowType" />
+				  <bitField name="bf1" size="2">
+		            <bits name="flag" mask="1110 0000 0000 0000"/>
+		            <bits name="maxpduSize" mask="0001 1111 1111 1111"/>
+		          </bitField>
+				  <byteArray length="FIRST_UI8" name="optionByte"/>
+				  <inline type="stypeCheck" expression="if (parent.serviceType == 0x04)" >
+		             <bitField name="bf2" size="2">
+		            <bits name="reserved" mask="1110 0000 0000 0000"/>
+		            <bits name="maxpduSize" mask="0001 1111 1111 1111"/>
+		          </bitField>
+				 </inline>
+		     </inline>
+		</inline>
+</msg>
+<msg type="Set_DSG_Mode1234" package="org.himalay.ccif"
+		predicate="0x9F8E07" base="APDUBase" header="header">
+		<complex type="APDUHeader" name="header" />
+		<ui8 name="length" />
+		<ui8 name="operationalMode" />
+		<inline type="StatusfieldCheck" expression="if ((operationalMode == 0x03) ||
+               (operationalMode ==0x04))" >
+		     <complex type="MacAddress" name="macAddress" />
+			 <ui16 name="remove_header_bytes" />
+		</inline>
+		
+</msg>
+
+</msgs>

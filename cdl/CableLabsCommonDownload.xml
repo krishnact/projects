@@ -1,0 +1,277 @@
+<msgs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../src/common/resources/msgs.xsd" packageName="org.himalay.cl.cdl">
+	<!-- http://www.cablelabs.com/specifications/OC-SP-CDL2.0-I11-100507.pdf -->
+	<msg type="ResourceHeader" package="org.himalay.cl.cdl" >
+		<ui8 name="messageType"/>
+		<ui8 name="descriptor_len"/>
+	</msg>
+	<msg type="GenericResource" package="org.himalay.cl.cdl" base="Resource" predicate="default" header="header">
+		<complex name="header" type="ResourceHeader"/>
+		<byteArray name="data" length="$header.descriptor_len"/>
+	</msg>
+	<msg type="VendorId" package="org.himalay.cl.cdl" base="Resource" predicate="0x00" header="header">
+		<complex name="header" type="ResourceHeader"/>
+		<byteArray name="oui" length="3"/>
+	</msg>	
+	<msg type="HardwareVersionId" package="org.himalay.cl.cdl" base="Resource" predicate="0x01" header="header">
+		<complex name="header" type="ResourceHeader"/>
+		<byteArray name="id" length="4"/>
+	</msg>	
+	<msg type="HostMacAddress" package="org.himalay.cl.cdl" base="Resource" predicate="0x02" header="header">
+		<complex name="header" type="ResourceHeader"/>
+		<complex name="macAddress" type="MacAddress" packageName="org.himalay.binmsg.util"></complex>
+	</msg>	
+	<msg type="HostId" package="org.himalay.cl.cdl" base="Resource" predicate="0x03" header="header">
+		<complex name="header" type="ResourceHeader"/>
+		<byteArray name="id" length="5"/>
+	</msg>	
+	<msg type="GroupId" package="org.himalay.cl.cdl" base="Resource" predicate="0x04" header="header">
+		<complex name="header" type="ResourceHeader"/>
+		<byteArray name="id" length="2"/>
+	</msg>	
+	<msg type="Resources" package="org.himalay.cl.cdl" >
+		<ui8 name="descriptor_count"/>
+		<array name="reourceList" type="Resource" size="$descriptor_count"/>
+	</msg>
+	
+	<msg type="Header" package="org.himalay.cl.cdl" >
+		<ui24 name="messageType"/>
+		<complex name="length" type="APDULengthField"/>
+	</msg>
+	
+	<!-- This is a good example of how to an external class to read length-->
+	<msg type="APDULengthField" package="org.himalay.cl.cdl" generate="false" >
+	<!-- This class is hand coded. It has a public member named value. We are defining that here so we can use it in other messages within this file. -->
+		<ui32 name="value"/>
+	</msg>
+	<msg type="CVCertificate" package="org.himalay.cl.cdl" generate="false">
+	</msg>	
+	<msg type="LocationType_source_id" package="org.himalay.cl.cdl" base="LocationType" predicate="0x00">
+	<!--         if (location_type == 0)  {                 -->
+	<!--             source_ID  16 uimsbf                   -->
+	<!--         }                                          -->
+	<ui16 name="source_ID"></ui16>
+	</msg>
+	
+	<msg type="LocationType_pid" package="org.himalay.cl.cdl" base="LocationType" predicate="0x01">
+	<!--         if (location_type == 1)  {                 -->
+	<!--             frequency_vector  16 uimsbf            -->
+	<ui16 name="frequency_vector"></ui16>
+	<!--             modulation_type  8 uimsbf              -->
+	<ui8 name="modulation_type"></ui8>
+	<bitField name="bf1" size="2">
+	<!--             reserved  3 uimsbf                     -->
+	<bits mask="1110 0000 0000 0000" name="reserved_"/>
+	<!--             PID  13 uimsbf                         -->
+	<bits mask="0001 1111 1111 1111" name="pid"/>
+	</bitField>
+	<!--         }                                          -->
+	</msg>	
+
+	<msg type="LocationType_program" package="org.himalay.cl.cdl" base="LocationType" predicate="0x02">
+	<!--         if (location_type == 2)  {                 -->
+	<!--             frequency_vector  16 uimsbf            -->
+	<ui16 name="frequency_vector"></ui16>
+	<!--             modulation_type  8 uimsbf              -->
+	<ui8 name="modulation_type"></ui8>
+	<!--             program_number  16 uimsbf              -->
+	<ui16 name="program_number"></ui16>
+	<!--         }                                          -->
+	</msg>	
+	
+	<msg type="LocationType_dsg_tunnel" package="org.himalay.cl.cdl" base="LocationType" predicate="0x03">
+	<!--           if (location_type == 3) {                -->
+	<!--       /* DSG Tunnel Address */                     -->
+	<!--             DSG_Tunnel_address  48 uimsbf          -->
+	<complex name="dsgTunnelAddress" type="IPv4Address" packageName="org.himalay.binmsg.util"></complex>
+	<!--             source_ip_address  128 uimsbf          -->
+	<complex name="source_ip_address" type="IPv6Address" packageName="org.himalay.binmsg.util"></complex>
+	<!--             destination_ip_address  128 uimsbf     -->
+	<complex name="destination_ip_address" type="IPv6Address" packageName="org.himalay.binmsg.util"></complex>
+	<!--             source_port_number  16 uimsbf          -->
+	<ui16 name="source_port_number"></ui16>
+	<!--             destination_port_number  16 uimsbf     -->
+	<ui16 name="destination_port_number"></ui16>
+	<!--            }                                       -->
+	</msg>	
+
+	<msg type="LocationType_dsg_app_id" package="org.himalay.cl.cdl" base="LocationType" predicate="0x04">
+	<!--         if (location_type == 4) {                  -->
+	<!--       /* DSG Application ID*/                      -->
+	<!--             application_id  16 uimsbf              -->
+	<ui16 name="application_id"></ui16>
+	<!--         }                                          -->
+	</msg>	
+	
+	<msg type="DownloadType_0_or_1" package="org.himalay.cl.cdl" >
+		<ui8 name="locationTypeSpecifier"></ui8>
+		<complex name="location" type="LocationType" predicate="$locationTypeSpecifier"></complex>
+	</msg>
+	<msg type="DownloadType_2" package="org.himalay.cl.cdl" >
+	<complex name="tftp_server_address" type="IPv6Address" packageName="org.himalay.binmsg.util"></complex>
+	</msg>	
+
+	
+	<!--    if (protocol_version == 01) {                   -->
+    <msg type="PV1" package="org.himalay.cl.cdl" base="PVData" predicate="0x01">
+    <bitField name="bf1" size="1">
+    <!--    download_type  4 uimsbf                         -->
+    <bits mask="1111 0000" name="download_type"/>
+	<!--    download_command  4 uimsbf                      -->
+	<bits mask="0000 1111" name="download_command"/>
+    </bitField>
+    
+	<!--    If (download_type == 00)  {                     -->
+	<!--         location_type  8 uimsbf                    -->
+	<!--         if (location_type == 0)  {                 -->
+	<!--             source_ID  16 uimsbf                   -->
+	<!--         }                                          -->
+	<!--         if (location_type == 1)  {                 -->
+	<!--             frequency_vector  16 uimsbf            -->
+	<!--             modulation_type  8 uimsbf              -->
+	<!--             reserved  3 uimsbf                     -->
+	<!--             PID  13 uimsbf                         -->
+	<!--         }                                          -->
+	<!--         if (location_type == 2)  {                 -->
+	<!--             frequency_vector  16 uimsbf            -->
+	<!--             modulation_type  8 uimsbf              -->
+	<!--             program_number  16 uimsbf              -->
+	<!--         }                                          -->
+	<!--    }                                               -->
+	<complex name="downloadType_0" type="DownloadType_0_or_1" expression="if (getDownload_type() == 0)"></complex>
+	<!--    if download_type == 01) {                       -->
+	<!--         location_type  8 uimsbf                    -->
+	<!--           if (location_type == 3) {                -->
+	<!--       /* DSG Tunnel Address */                     -->
+	<!--             DSG_Tunnel_address  48 uimsbf          -->
+	<!--             source_ip_address  128 uimsbf          -->
+	<!--             destination_ip_address  128 uimsbf     -->
+	<!--             source_port_number  16 uimsbf          -->
+	<!--             destination_port_number  16 uimsbf     -->
+	<!--            }                                       -->
+	<!--         if (location_type == 4) {                  -->
+	<!--       /* DSG Application ID*/                      -->
+	<!--             application_id  16 uimsbf              -->
+	<!--         }                                          -->
+	<!--    }   	                                        -->
+	<complex name="downloadType_1" type="DownloadType_0_or_1" expression="if (getDownload_type() == 1)"></complex>
+	<!--    if download_type == 02) {                       -->
+	<!--         tftp_server_address  128 uimsbf            -->
+	<!--    }                                               -->
+	<complex name="downloadType_2" type="DownloadType_2" expression="if (getDownload_type() == 2)"></complex>
+	<!--    code_file_name_length  8 uimsbf                 -->
+	<!--    for(i=0;i<code_file_name_length;i++){           -->
+	<!--       code_file_name_byte  8 uimsbf                -->
+	<!--     }                                              -->
+	<byteArray name="code_file_name" length="FIRST_UI8"/>
+	<!--    }                                               -->
+	</msg>
+
+	
+	<!--    if (protocol_version == 02) {                   -->
+    <msg type="PV2" package="org.himalay.cl.cdl" base="PVData" predicate="0x02">
+	<!--    number_of_objects  8 uimsbf                     -->
+	<ui8 name="number_of_objects"></ui8>
+	<!--    for(i=0;i<number_of_objects;i++){               -->
+	<inline type="PV2Object" define="false">
+    <bitField name="bf1" size="1">
+	<!--      download_type  4 uimsbf                       -->
+    <bits mask="1111 0000" name="download_type"/>
+	<!--      download_command  4 uimsbf                    -->
+	<bits mask="0000 1111" name="download_command"/>
+    </bitField>
+	<!--      If (download_type == 00)  {                   -->
+	<!--            location_type  8 uimsbf                 -->
+	<!--            if (location_type == 0)  {              -->
+	<!--                source_ID  16 uimsbf                -->
+	<!--             }                                      -->
+	<!--            if (location_type == 1)  {              -->
+	<!--                frequency_vector  16 uimsbf         -->
+	<!--                modulation_type  8 uimsbf           -->
+	<!--                reserved  3 uimsbf                  -->
+	<!--                PID  13 uimsbf                      -->
+	<!--            }                                       -->
+	<!--            if (location_type == 2)  {              -->
+	<!--                frequency_vector  16 uimsbf         -->
+	<!--                modulation_type  8 uimsbf           -->
+	<!--                program_number  16 uimsbf           -->
+	<!--            }                                       -->
+	<!--      }                                             -->
+	<complex name="downloadType_0" type="DownloadType_0_or_1" expression="if (getDownload_type() == 0)"></complex>
+	<!--      if download_type == 01) {                     -->
+	<!--            location_type  8 uimsbf                 -->
+	<!--              if (location_type == 3) {             -->
+	<!--          /* Basic DSG mode only */                 -->
+	<!--                DSG_Tunnel_address  48 uimsbf       -->
+	<!--                source_ip_address  128 uimsbf       -->
+	<!--                destination_ip_address  128 uimsbf  -->
+	<!--                source_port_number  16 uimsbf       -->
+	<!--                destination_port_number  16 uimsbf  -->
+	<!--               }                                    -->
+	<!--            if (location_type == 4) {               -->
+	<!--          /* Advanced DSG mode only */              -->
+	<!--                application_id  16 uimsbf           -->
+	<!--            }                                       -->
+	<!--      }                                             -->
+	<complex name="downloadType_1" type="DownloadType_0_or_1" expression="if (getDownload_type() == 0)"></complex>
+	
+	<!--      if download_type == 02) {                     -->
+	<!--            tftp_server_address  128 uimsbf         -->
+	<!--      }                                             -->
+	<complex name="downloadType_2" type="DownloadType_2" expression="if (getDownload_type() == 2)"></complex>
+	
+	<!--      object_type  16 uimsbf                        -->
+	<ui16 name="object_type"></ui16>
+	
+	<!--      object_data_length  8 uimsbf                  -->
+	<!--      for(i=0;i<object_data_length;i++){            -->
+	<!--         object_data_byte  8 uimsbf                 -->
+	<!--      }                                             -->
+	<byteArray name="object_data" length="FIRST_UI8"/>
+	
+	<!--      code_file_name_length  8 uimsbf               -->
+	<!--      for(i=0;i<code_file_name_length;i++){         -->
+	<!--         code_file_name_byte  8 uimsbf              -->
+	<!--       }                                            -->
+	<!--     }                                              -->
+	<byteArray name="code_file_name" length="FIRST_UI8"/>
+	
+	<!--    }                                               -->
+	</inline>
+	<array name="pv2Datum" type="PV2Object" size="$number_of_objects"/>
+	<!--  }                                                 -->
+	
+	</msg>	
+	
+		
+	<msg type="code_version_table2_" package="org.himalay.cl.cdl" base="code_version_table" predicate="0x9f9c05" concrete="code_version_table2" header="header">
+	<!-- code_version_table2() { --> 
+	<!-- code_version_table2_tag  24 uimsbf --> 
+	<!-- length_field() -->
+	<complex name="header" type="Header"></complex>
+	<!-- protocol_version  8 uimsbf  -->
+	<ui8 name="protocol_version"></ui8>
+	<!-- configuration_count_change  8 uimsbf  -->
+	<ui8 name="configuration_count_change"></ui8>
+	<!-- number of descriptors  8 uimsbf -->
+	<!--    for(i=0;i<number of descriptors;i++){           -->
+	<!--         descriptor_tag  8 uimsbf                   -->
+	<!--         descriptor_len  8 uimsbf                   -->
+	<!--         descriptor_data()                          -->
+	<!--    }                                               -->
+	<complex name="resources" type="Resources"></complex>
+	<complex name="pvData" type="PVData" predicate="$protocol_version" ></complex>
+	<!-- example of using an external class for length field -->
+	<!--
+		<byteArray name="fff" length="$header.length.value"/>
+	-->
+	<!--    number_of_cv_certificates  8 uimsbf             -->
+	<!--    for     (i=0;i<number_of_cv_certificates;i++){  -->
+	<!--      certificate_type  8 uimsbf                    -->
+	<!--      code_verification_certificate()               -->
+	<!--    }                                               -->
+	<ui8 name="certificateCount"></ui8>
+	<array name="cvCertificates" type="CVCertificate" size="$certificateCount"/>
+	</msg>
+
+</msgs>
