@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.ccif ;
@@ -30,105 +30,135 @@ public  class Send_DCD_info extends   APDUBaseFactory.APDUBase { //Concrete type
     // messageType
     public short messageType ;
 
-        public Send_DCD_info () // throws Exception
+    public Send_DCD_info () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize header
         header = new APDUHeader();
         // Initialize length
-        
+
         // Initialize operationalMode
-        
+
         // Initialize messageType
-        
+
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-  preRead();
-    int retVal= 0;
-                // read length
-        {length=(short)(istream.readUnsignedByte()); retVal+=1;}
-        // read operationalMode
-        {operationalMode=(short)(istream.readUnsignedByte()); retVal+=1;}
-        // read messageType
-        {messageType=(short)(istream.readUnsignedByte()); retVal+=1;}
 
-postRead();
-        return retVal;
+        preRead();
+        int retVal= 0;
+        // read length
+        {
+            length=(short)(istream.readUnsignedByte());
+            retVal+=1;
         }
-   
-    public int read(DataInputStream istream) throws IOException 
+        // read operationalMode
+        {
+            operationalMode=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
+        // read messageType
+        {
+            messageType=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
+
+        postRead();
+        return retVal;
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read header
+        // read header
         retVal += header.read(istream);
         // read length
-        {length=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            length=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read operationalMode
-        {operationalMode=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            operationalMode=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read messageType
-        {messageType=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            messageType=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
 
         postRead();
         return retVal;
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        { /** fix dependent sizes for header **/  }
-        
-        
-        
-    
-                // write header
+        {   /** fix dependent sizes for header **/
+        }
+
+
+
+
+        // write header
         if (header!=null)retVal +=header.write(ostream);
         // write length
-        ostream.writeByte(length); retVal +=1;
+        ostream.writeByte(length);
+        retVal +=1;
         // write operationalMode
-        ostream.writeByte(operationalMode); retVal +=1;
+        ostream.writeByte(operationalMode);
+        retVal +=1;
         // write messageType
-        ostream.writeByte(messageType); retVal +=1;
-postWrite();
+        ostream.writeByte(messageType);
+        retVal +=1;
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("Send_DCD_info\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("Send_DCD_info\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write header
-        if ( header != null ) {dc.indent();dc.getPs().println("header") ;retVal +=header.dump(dc);}
+        if ( header != null ) {
+            dc.indent();
+            dc.getPs().println("header") ;
+            retVal +=header.dump(dc);
+        }
         // write length
-        dc.indent();dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
+        dc.indent();
+        dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
         // write operationalMode
-        dc.indent();dc.getPs().println("operationalMode="+operationalMode+"(0x"+ Integer.toHexString(operationalMode) + ")" );
+        dc.indent();
+        dc.getPs().println("operationalMode="+operationalMode+"(0x"+ Integer.toHexString(operationalMode) + ")" );
         // write messageType
-        dc.indent();dc.getPs().println("messageType="+messageType+"(0x"+ Integer.toHexString(messageType) + ")" );
-dc.decreaseIndent();
+        dc.indent();
+        dc.getPs().println("messageType="+messageType+"(0x"+ Integer.toHexString(messageType) + ")" );
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for header
+    // Getter for header
     //public APDUHeader getHeader()
     //{
     //    return header ;
     //}
 
-    
+
     // Setter for header
     //public void setHeader(APDUHeader val)
     //{
@@ -140,7 +170,7 @@ dc.decreaseIndent();
     //    return length ;
     //}
 
-    
+
     // Setter for length
     //public void setLength(short val)
     //{
@@ -152,7 +182,7 @@ dc.decreaseIndent();
     //    return operationalMode ;
     //}
 
-    
+
     // Setter for operationalMode
     //public void setOperationalMode(short val)
     //{
@@ -164,7 +194,7 @@ dc.decreaseIndent();
         return messageType ;
     }
 
-    
+
     // Setter for messageType
     public void setMessageType(short val)
     {
@@ -174,16 +204,16 @@ dc.decreaseIndent();
 
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
-     public void setHeader(APDUHeader header)
+
+
+    public void setHeader(APDUHeader header)
     {
-         this.header= header;   
+        this.header= header;
     }
-    
+
     public APDUHeader getHeader()
     {
         return this.header;

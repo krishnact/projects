@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.cl.cdl ;
@@ -26,83 +26,100 @@ public  class VendorId extends   ResourceFactory.Resource { //Concrete type is V
     // oui
     public ByteArray oui ;
 
-        public VendorId () // throws Exception
+    public VendorId () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize header
         header = new ResourceHeader();
         // Initialize oui
-        oui= new ByteArray();oui.setSizeType("FIXED");oui.setSize(3);
+        oui= new ByteArray();
+        oui.setSizeType("FIXED");
+        oui.setSize(3);
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-  preRead();
-    int retVal= 0;
-                // read oui
-        {retVal+=oui.read(istream); }
 
-postRead();
-        return retVal;
+        preRead();
+        int retVal= 0;
+        // read oui
+        {
+            retVal+=oui.read(istream);
         }
-   
-    public int read(DataInputStream istream) throws IOException 
+
+        postRead();
+        return retVal;
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read header
+        // read header
         retVal += header.read(istream);
         // read oui
-        {retVal+=oui.read(istream); }
+        {
+            retVal+=oui.read(istream);
+        }
 
         postRead();
         return retVal;
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        { /** fix dependent sizes for header **/  }
-        { /** fix dependent sizes for oui**/  }
-    
-                // write header
+        {   /** fix dependent sizes for header **/
+        }
+        {   /** fix dependent sizes for oui**/
+        }
+
+        // write header
         if (header!=null)retVal +=header.write(ostream);
         // write oui
-        {retVal += oui.write(ostream);}
-postWrite();
+        {
+            retVal += oui.write(ostream);
+        }
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("VendorId\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("VendorId\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write header
-        if ( header != null ) {dc.indent();dc.getPs().println("header") ;retVal +=header.dump(dc);}
+        if ( header != null ) {
+            dc.indent();
+            dc.getPs().println("header") ;
+            retVal +=header.dump(dc);
+        }
         // write oui
-        dc.indent();dc.getPs().print("oui: "+oui.getSize()+"(0x"+Integer.toHexString(oui.getSize())+")\n");this.oui.dump(dc);
-dc.decreaseIndent();
+        dc.indent();
+        dc.getPs().print("oui: "+oui.getSize()+"(0x"+Integer.toHexString(oui.getSize())+")\n");
+        this.oui.dump(dc);
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for header
+    // Getter for header
     //public ResourceHeader getHeader()
     //{
     //    return header ;
     //}
 
-    
+
     // Setter for header
     //public void setHeader(ResourceHeader val)
     //{
@@ -114,7 +131,7 @@ dc.decreaseIndent();
     //    return oui ;
     //}
 
-    
+
     // Setter for oui
     //public void setOui(ByteArray val)
     //{
@@ -126,20 +143,20 @@ dc.decreaseIndent();
     {
         this.oui.setData(val);
     }
-    
-    
+
+
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
-     public void setHeader(ResourceHeader header)
+
+
+    public void setHeader(ResourceHeader header)
     {
-         this.header= header;   
+        this.header= header;
     }
-    
+
     public ResourceHeader getHeader()
     {
         return this.header;

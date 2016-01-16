@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.ccif ;
@@ -15,7 +15,7 @@ import org.himalay.msgs.runtime.Created;
 import org.himalay.msgs.runtime.*;
 @Created(date = "Fri Jan 15 01:33:06 EST 2016")
 
-public  class TerminalAssociation extends BinStruct implements PublicBinMsg{
+public  class TerminalAssociation extends BinStruct implements PublicBinMsg {
 
 
 
@@ -24,68 +24,77 @@ public  class TerminalAssociation extends BinStruct implements PublicBinMsg{
     // identifierList
     public ByteArray identifierList ;
 
-        public TerminalAssociation () // throws Exception
+    public TerminalAssociation () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize identifierList
-        identifierList= new ByteArray();identifierList.setSizeType("FIRST_UI16");
+        identifierList= new ByteArray();
+        identifierList.setSizeType("FIRST_UI16");
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-     return read(istream);
-       }
-   
-    public int read(DataInputStream istream) throws IOException 
+
+        return read(istream);
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read identifierList
-        {retVal+=identifierList.read(istream); }
+        // read identifierList
+        {
+            retVal+=identifierList.read(istream);
+        }
 
         postRead();
         return retVal;
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        { /** fix dependent sizes for identifierList**/  }
-    
-                // write identifierList
-        {retVal += identifierList.write(ostream);}
-postWrite();
+        {   /** fix dependent sizes for identifierList**/
+        }
+
+        // write identifierList
+        {
+            retVal += identifierList.write(ostream);
+        }
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("TerminalAssociation\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("TerminalAssociation\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write identifierList
-        dc.indent();dc.getPs().print("identifierList: "+identifierList.getSize()+"(0x"+Integer.toHexString(identifierList.getSize())+")\n");this.identifierList.dump(dc);
-dc.decreaseIndent();
+        dc.indent();
+        dc.getPs().print("identifierList: "+identifierList.getSize()+"(0x"+Integer.toHexString(identifierList.getSize())+")\n");
+        this.identifierList.dump(dc);
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for identifierList
+    // Getter for identifierList
     //public ByteArray getIdentifierList()
     //{
     //    return identifierList ;
     //}
 
-    
+
     // Setter for identifierList
     //public void setIdentifierList(ByteArray val)
     //{
@@ -97,15 +106,15 @@ dc.decreaseIndent();
     {
         this.identifierList.setData(val);
     }
-    
-    
+
+
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
+
+
 
 }
 

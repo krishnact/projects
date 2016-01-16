@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.cl.cdl ;
@@ -24,68 +24,74 @@ public  class LocationType_source_id extends   LocationTypeFactory.LocationType 
     // source_ID
     public int source_ID ;
 
-        public LocationType_source_id () // throws Exception
+    public LocationType_source_id () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize source_ID
-        
+
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-     return read(istream);
-       }
-   
-    public int read(DataInputStream istream) throws IOException 
+
+        return read(istream);
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read source_ID
-        {source_ID=istream.readUnsignedShort(); retVal+=2;}
+        // read source_ID
+        {
+            source_ID=istream.readUnsignedShort();
+            retVal+=2;
+        }
 
         postRead();
         return retVal;
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        
-    
-                // write source_ID
-        ostream.writeShort(source_ID); retVal +=2;
-postWrite();
+
+
+        // write source_ID
+        ostream.writeShort(source_ID);
+        retVal +=2;
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("LocationType_source_id\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("LocationType_source_id\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write source_ID
-        dc.indent();dc.getPs().println("source_ID="+source_ID+"(0x"+ Integer.toHexString(source_ID) + ")" );
-dc.decreaseIndent();
+        dc.indent();
+        dc.getPs().println("source_ID="+source_ID+"(0x"+ Integer.toHexString(source_ID) + ")" );
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for source_ID
+    // Getter for source_ID
     //public int getSource_ID()
     //{
     //    return source_ID ;
     //}
 
-    
+
     // Setter for source_ID
     //public void setSource_ID(int val)
     //{
@@ -95,11 +101,11 @@ dc.decreaseIndent();
 
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
+
+
 
 }
 

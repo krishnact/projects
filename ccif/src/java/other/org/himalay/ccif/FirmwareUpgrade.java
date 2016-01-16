@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.ccif ;
@@ -36,138 +36,194 @@ public  class FirmwareUpgrade extends   APDUBaseFactory.APDUBase { //Concrete ty
     // texts
     public ByteArray texts ;
 
-        public FirmwareUpgrade () // throws Exception
+    public FirmwareUpgrade () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize header
         header = new APDUHeader();
         // Initialize length
-        
+
         // Initialize upgrade_source
-        
+
         // Initialize download_time
-        
+
         // Initialize download_timeout_period
-        
+
         // Initialize length1
-        
+
         // Initialize texts
-        texts= new ByteArray();texts.setSizeType("FIRST_UI8");
+        texts= new ByteArray();
+        texts.setSizeType("FIRST_UI8");
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-  preRead();
-    int retVal= 0;
-                // read length
-        {length=(short)(istream.readUnsignedByte()); retVal+=1;}
-        // read upgrade_source
-        {upgrade_source=(short)(istream.readUnsignedByte()); retVal+=1;}
-        // read download_time
-        {download_time=istream.readUnsignedShort(); retVal+=2;}
-        // read download_timeout_period
-        {download_timeout_period=(short)(istream.readUnsignedByte()); retVal+=1;}
-        // read length1
-        {length1=istream.readUnsignedShort(); retVal+=2;}
-        // read texts
-        {retVal+=texts.read(istream); }
 
-postRead();
-        return retVal;
+        preRead();
+        int retVal= 0;
+        // read length
+        {
+            length=(short)(istream.readUnsignedByte());
+            retVal+=1;
         }
-   
-    public int read(DataInputStream istream) throws IOException 
+        // read upgrade_source
+        {
+            upgrade_source=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
+        // read download_time
+        {
+            download_time=istream.readUnsignedShort();
+            retVal+=2;
+        }
+        // read download_timeout_period
+        {
+            download_timeout_period=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
+        // read length1
+        {
+            length1=istream.readUnsignedShort();
+            retVal+=2;
+        }
+        // read texts
+        {
+            retVal+=texts.read(istream);
+        }
+
+        postRead();
+        return retVal;
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read header
+        // read header
         retVal += header.read(istream);
         // read length
-        {length=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            length=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read upgrade_source
-        {upgrade_source=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            upgrade_source=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read download_time
-        {download_time=istream.readUnsignedShort(); retVal+=2;}
+        {
+            download_time=istream.readUnsignedShort();
+            retVal+=2;
+        }
         // read download_timeout_period
-        {download_timeout_period=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            download_timeout_period=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read length1
-        {length1=istream.readUnsignedShort(); retVal+=2;}
+        {
+            length1=istream.readUnsignedShort();
+            retVal+=2;
+        }
         // read texts
-        {retVal+=texts.read(istream); }
+        {
+            retVal+=texts.read(istream);
+        }
 
         postRead();
         return retVal;
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        { /** fix dependent sizes for header **/  }
-        
-        
-        
-        
-        
-        { /** fix dependent sizes for texts**/  }
-    
-                // write header
+        {   /** fix dependent sizes for header **/
+        }
+
+
+
+
+
+        {   /** fix dependent sizes for texts**/
+        }
+
+        // write header
         if (header!=null)retVal +=header.write(ostream);
         // write length
-        ostream.writeByte(length); retVal +=1;
+        ostream.writeByte(length);
+        retVal +=1;
         // write upgrade_source
-        ostream.writeByte(upgrade_source); retVal +=1;
+        ostream.writeByte(upgrade_source);
+        retVal +=1;
         // write download_time
-        ostream.writeShort(download_time); retVal +=2;
+        ostream.writeShort(download_time);
+        retVal +=2;
         // write download_timeout_period
-        ostream.writeByte(download_timeout_period); retVal +=1;
+        ostream.writeByte(download_timeout_period);
+        retVal +=1;
         // write length1
-        ostream.writeShort(length1); retVal +=2;
+        ostream.writeShort(length1);
+        retVal +=2;
         // write texts
-        {retVal += texts.write(ostream);}
-postWrite();
+        {
+            retVal += texts.write(ostream);
+        }
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("FirmwareUpgrade\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("FirmwareUpgrade\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write header
-        if ( header != null ) {dc.indent();dc.getPs().println("header") ;retVal +=header.dump(dc);}
+        if ( header != null ) {
+            dc.indent();
+            dc.getPs().println("header") ;
+            retVal +=header.dump(dc);
+        }
         // write length
-        dc.indent();dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
+        dc.indent();
+        dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
         // write upgrade_source
-        dc.indent();dc.getPs().println("upgrade_source="+upgrade_source+"(0x"+ Integer.toHexString(upgrade_source) + ")" );
+        dc.indent();
+        dc.getPs().println("upgrade_source="+upgrade_source+"(0x"+ Integer.toHexString(upgrade_source) + ")" );
         // write download_time
-        dc.indent();dc.getPs().println("download_time="+download_time+"(0x"+ Integer.toHexString(download_time) + ")" );
+        dc.indent();
+        dc.getPs().println("download_time="+download_time+"(0x"+ Integer.toHexString(download_time) + ")" );
         // write download_timeout_period
-        dc.indent();dc.getPs().println("download_timeout_period="+download_timeout_period+"(0x"+ Integer.toHexString(download_timeout_period) + ")" );
+        dc.indent();
+        dc.getPs().println("download_timeout_period="+download_timeout_period+"(0x"+ Integer.toHexString(download_timeout_period) + ")" );
         // write length1
-        dc.indent();dc.getPs().println("length1="+length1+"(0x"+ Integer.toHexString(length1) + ")" );
+        dc.indent();
+        dc.getPs().println("length1="+length1+"(0x"+ Integer.toHexString(length1) + ")" );
         // write texts
-        dc.indent();dc.getPs().print("texts: "+texts.getSize()+"(0x"+Integer.toHexString(texts.getSize())+")\n");this.texts.dump(dc);
-dc.decreaseIndent();
+        dc.indent();
+        dc.getPs().print("texts: "+texts.getSize()+"(0x"+Integer.toHexString(texts.getSize())+")\n");
+        this.texts.dump(dc);
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for header
+    // Getter for header
     //public APDUHeader getHeader()
     //{
     //    return header ;
     //}
 
-    
+
     // Setter for header
     //public void setHeader(APDUHeader val)
     //{
@@ -179,7 +235,7 @@ dc.decreaseIndent();
     //    return length ;
     //}
 
-    
+
     // Setter for length
     //public void setLength(short val)
     //{
@@ -191,7 +247,7 @@ dc.decreaseIndent();
     //    return upgrade_source ;
     //}
 
-    
+
     // Setter for upgrade_source
     //public void setUpgrade_source(short val)
     //{
@@ -203,7 +259,7 @@ dc.decreaseIndent();
     //    return download_time ;
     //}
 
-    
+
     // Setter for download_time
     //public void setDownload_time(int val)
     //{
@@ -215,7 +271,7 @@ dc.decreaseIndent();
     //    return download_timeout_period ;
     //}
 
-    
+
     // Setter for download_timeout_period
     //public void setDownload_timeout_period(short val)
     //{
@@ -227,7 +283,7 @@ dc.decreaseIndent();
     //    return length1 ;
     //}
 
-    
+
     // Setter for length1
     //public void setLength1(int val)
     //{
@@ -239,7 +295,7 @@ dc.decreaseIndent();
     //    return texts ;
     //}
 
-    
+
     // Setter for texts
     //public void setTexts(ByteArray val)
     //{
@@ -251,20 +307,20 @@ dc.decreaseIndent();
     {
         this.texts.setData(val);
     }
-    
-    
+
+
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
-     public void setHeader(APDUHeader header)
+
+
+    public void setHeader(APDUHeader header)
     {
-         this.header= header;   
+        this.header= header;
     }
-    
+
     public APDUHeader getHeader()
     {
         return this.header;

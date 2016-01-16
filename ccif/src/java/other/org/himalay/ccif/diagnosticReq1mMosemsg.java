@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.ccif ;
@@ -15,7 +15,7 @@ import org.himalay.msgs.runtime.Created;
 import org.himalay.msgs.runtime.*;
 @Created(date = "Fri Jan 15 01:33:07 EST 2016")
 
-public  class diagnosticReq1mMosemsg extends BinStruct implements PublicBinMsg{
+public  class diagnosticReq1mMosemsg extends BinStruct implements PublicBinMsg {
 
 
 
@@ -26,77 +26,88 @@ public  class diagnosticReq1mMosemsg extends BinStruct implements PublicBinMsg{
     // itsid
     public short itsid ;
 
-        public diagnosticReq1mMosemsg () // throws Exception
+    public diagnosticReq1mMosemsg () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize diagnosticid
-        
+
         // Initialize itsid
-        
+
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-     return read(istream);
-       }
-   
-    public int read(DataInputStream istream) throws IOException 
+
+        return read(istream);
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read diagnosticid
-        {diagnosticid=(short)(istream.readUnsignedByte()); retVal+=1;}
+        // read diagnosticid
+        {
+            diagnosticid=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read itsid
-        {itsid=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            itsid=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
 
         postRead();
         return retVal;
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        
-        
-    
-                // write diagnosticid
-        ostream.writeByte(diagnosticid); retVal +=1;
+
+
+
+        // write diagnosticid
+        ostream.writeByte(diagnosticid);
+        retVal +=1;
         // write itsid
-        ostream.writeByte(itsid); retVal +=1;
-postWrite();
+        ostream.writeByte(itsid);
+        retVal +=1;
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("diagnosticReq1mMosemsg\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("diagnosticReq1mMosemsg\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write diagnosticid
-        dc.indent();dc.getPs().println("diagnosticid="+diagnosticid+"(0x"+ Integer.toHexString(diagnosticid) + ")" );
+        dc.indent();
+        dc.getPs().println("diagnosticid="+diagnosticid+"(0x"+ Integer.toHexString(diagnosticid) + ")" );
         // write itsid
-        dc.indent();dc.getPs().println("itsid="+itsid+"(0x"+ Integer.toHexString(itsid) + ")" );
-dc.decreaseIndent();
+        dc.indent();
+        dc.getPs().println("itsid="+itsid+"(0x"+ Integer.toHexString(itsid) + ")" );
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for diagnosticid
+    // Getter for diagnosticid
     //public short getDiagnosticid()
     //{
     //    return diagnosticid ;
     //}
 
-    
+
     // Setter for diagnosticid
     //public void setDiagnosticid(short val)
     //{
@@ -108,7 +119,7 @@ dc.decreaseIndent();
     //    return itsid ;
     //}
 
-    
+
     // Setter for itsid
     //public void setItsid(short val)
     //{
@@ -118,11 +129,11 @@ dc.decreaseIndent();
 
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
+
+
 
 }
 

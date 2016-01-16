@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.ccif ;
@@ -42,171 +42,271 @@ public  class ProgramReq extends   APDUBaseFactory.APDUBase { //Concrete type is
     // descriptors
     public ArrayList<CaDescriptor> descriptors ;
 
-        public ProgramReq () // throws Exception
+    public ProgramReq () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize header
         header = new APDUHeader();
         // Initialize length
-        
+
         // Initialize transactionId
-        
+
         // Initialize transportStreamId
-        
+
         // Initialize program_number
-        
+
         // Initialize sourceId
-        
+
         // Initialize eventId
-        
+
         // Initialize currentNextIndicator
-        
+
         // Initialize bf1
         bf1 = new BitField_8();
         // Initialize descriptors
-        descriptors= new ArrayList<CaDescriptor>();descriptors.setMemberSize(0);
+        descriptors= new ArrayList<CaDescriptor>();
+        descriptors.setMemberSize(0);
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-  preRead();
-    int retVal= 0;
-                // read length
-        {length=(short)(istream.readUnsignedByte()); retVal+=1;}
+
+        preRead();
+        int retVal= 0;
+        // read length
+        {
+            length=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read transactionId
-        {transactionId=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            transactionId=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read transportStreamId
-        {transportStreamId=istream.readUnsignedShort(); retVal+=2;}
+        {
+            transportStreamId=istream.readUnsignedShort();
+            retVal+=2;
+        }
         // read program_number
-        {program_number=istream.readUnsignedShort(); retVal+=2;}
+        {
+            program_number=istream.readUnsignedShort();
+            retVal+=2;
+        }
         // read sourceId
-        {sourceId=istream.readUnsignedShort(); retVal+=2;}
+        {
+            sourceId=istream.readUnsignedShort();
+            retVal+=2;
+        }
         // read eventId
-        {eventId=istream.readUnsignedShort(); retVal+=2;}
+        {
+            eventId=istream.readUnsignedShort();
+            retVal+=2;
+        }
         // read currentNextIndicator
-        {currentNextIndicator=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            currentNextIndicator=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read bf1
         retVal += bf1.read(istream);
         // read descriptors
-        for (; istream.available() > 0 ; ){     CaDescriptor temp;    temp = new CaDescriptor();    retVal += temp.read(istream);    descriptors.add(temp);}
-
-postRead();
-        return retVal;
+        for (; istream.available() > 0 ; ) {
+            CaDescriptor temp;
+            temp = new CaDescriptor();
+            retVal += temp.read(istream);
+            descriptors.add(temp);
         }
-   
-    public int read(DataInputStream istream) throws IOException 
+
+        postRead();
+        return retVal;
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read header
+        // read header
         retVal += header.read(istream);
         // read length
-        {length=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            length=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read transactionId
-        {transactionId=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            transactionId=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read transportStreamId
-        {transportStreamId=istream.readUnsignedShort(); retVal+=2;}
+        {
+            transportStreamId=istream.readUnsignedShort();
+            retVal+=2;
+        }
         // read program_number
-        {program_number=istream.readUnsignedShort(); retVal+=2;}
+        {
+            program_number=istream.readUnsignedShort();
+            retVal+=2;
+        }
         // read sourceId
-        {sourceId=istream.readUnsignedShort(); retVal+=2;}
+        {
+            sourceId=istream.readUnsignedShort();
+            retVal+=2;
+        }
         // read eventId
-        {eventId=istream.readUnsignedShort(); retVal+=2;}
+        {
+            eventId=istream.readUnsignedShort();
+            retVal+=2;
+        }
         // read currentNextIndicator
-        {currentNextIndicator=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            currentNextIndicator=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read bf1
         retVal += bf1.read(istream);
         // read descriptors
-        for (; istream.available() > 0 ; ){     CaDescriptor temp;    temp = new CaDescriptor();    retVal += temp.read(istream);    descriptors.add(temp);}
+        for (; istream.available() > 0 ; ) {
+            CaDescriptor temp;
+            temp = new CaDescriptor();
+            retVal += temp.read(istream);
+            descriptors.add(temp);
+        }
 
         postRead();
         return retVal;
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        { /** fix dependent sizes for header **/  }
-        
-        
-        
-        
-        
-        
-        
-        
-        { /** fix dependent sizes for descriptors**/  }
-    
-                // write header
+        {   /** fix dependent sizes for header **/
+        }
+
+
+
+
+
+
+
+
+        {   /** fix dependent sizes for descriptors**/
+        }
+
+        // write header
         if (header!=null)retVal +=header.write(ostream);
         // write length
-        ostream.writeByte(length); retVal +=1;
+        ostream.writeByte(length);
+        retVal +=1;
         // write transactionId
-        ostream.writeByte(transactionId); retVal +=1;
+        ostream.writeByte(transactionId);
+        retVal +=1;
         // write transportStreamId
-        ostream.writeShort(transportStreamId); retVal +=2;
+        ostream.writeShort(transportStreamId);
+        retVal +=2;
         // write program_number
-        ostream.writeShort(program_number); retVal +=2;
+        ostream.writeShort(program_number);
+        retVal +=2;
         // write sourceId
-        ostream.writeShort(sourceId); retVal +=2;
+        ostream.writeShort(sourceId);
+        retVal +=2;
         // write eventId
-        ostream.writeShort(eventId); retVal +=2;
+        ostream.writeShort(eventId);
+        retVal +=2;
         // write currentNextIndicator
-        ostream.writeByte(currentNextIndicator); retVal +=1;
+        ostream.writeByte(currentNextIndicator);
+        retVal +=1;
         // write bf1
-        ostream.writeByte(bf1.getValue()); retVal +=1;
+        ostream.writeByte(bf1.getValue());
+        retVal +=1;
         // write descriptors
-        {ArrayList<CaDescriptor> temp1 = descriptors;for (int iIdx=0; iIdx < temp1.getCount() ; iIdx++){     CaDescriptor temp2    =    temp1.get(iIdx);    if (temp2!=null)retVal +=temp2.write(ostream);}}
-postWrite();
+        {
+            ArrayList<CaDescriptor> temp1 = descriptors;
+            for (int iIdx=0; iIdx < temp1.getCount() ; iIdx++) {
+                CaDescriptor temp2    =    temp1.get(iIdx);
+                if (temp2!=null)retVal +=temp2.write(ostream);
+            }
+        }
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("ProgramReq\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("ProgramReq\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write header
-        if ( header != null ) {dc.indent();dc.getPs().println("header") ;retVal +=header.dump(dc);}
+        if ( header != null ) {
+            dc.indent();
+            dc.getPs().println("header") ;
+            retVal +=header.dump(dc);
+        }
         // write length
-        dc.indent();dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
+        dc.indent();
+        dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
         // write transactionId
-        dc.indent();dc.getPs().println("transactionId="+transactionId+"(0x"+ Integer.toHexString(transactionId) + ")" );
+        dc.indent();
+        dc.getPs().println("transactionId="+transactionId+"(0x"+ Integer.toHexString(transactionId) + ")" );
         // write transportStreamId
-        dc.indent();dc.getPs().println("transportStreamId="+transportStreamId+"(0x"+ Integer.toHexString(transportStreamId) + ")" );
+        dc.indent();
+        dc.getPs().println("transportStreamId="+transportStreamId+"(0x"+ Integer.toHexString(transportStreamId) + ")" );
         // write program_number
-        dc.indent();dc.getPs().println("program_number="+program_number+"(0x"+ Integer.toHexString(program_number) + ")" );
+        dc.indent();
+        dc.getPs().println("program_number="+program_number+"(0x"+ Integer.toHexString(program_number) + ")" );
         // write sourceId
-        dc.indent();dc.getPs().println("sourceId="+sourceId+"(0x"+ Integer.toHexString(sourceId) + ")" );
+        dc.indent();
+        dc.getPs().println("sourceId="+sourceId+"(0x"+ Integer.toHexString(sourceId) + ")" );
         // write eventId
-        dc.indent();dc.getPs().println("eventId="+eventId+"(0x"+ Integer.toHexString(eventId) + ")" );
+        dc.indent();
+        dc.getPs().println("eventId="+eventId+"(0x"+ Integer.toHexString(eventId) + ")" );
         // write currentNextIndicator
-        dc.indent();dc.getPs().println("currentNextIndicator="+currentNextIndicator+"(0x"+ Integer.toHexString(currentNextIndicator) + ")" );
+        dc.indent();
+        dc.getPs().println("currentNextIndicator="+currentNextIndicator+"(0x"+ Integer.toHexString(currentNextIndicator) + ")" );
         // write bf1
-        {dc.indent();dc.getPs().print("reserved: ");dc.getPs().println(BitField_8.toDisplayString(getReserved(),7));dc.indent();dc.getPs().print("currentNext: ");dc.getPs().println(BitField_8.toDisplayString(getCurrentNext(),1));}
+        {
+            dc.indent();
+            dc.getPs().print("reserved: ");
+            dc.getPs().println(BitField_8.toDisplayString(getReserved(),7));
+            dc.indent();
+            dc.getPs().print("currentNext: ");
+            dc.getPs().println(BitField_8.toDisplayString(getCurrentNext(),1));
+        }
         // write descriptors
-        { ArrayList<CaDescriptor> temp1 = descriptors;for (int iIdx=0; iIdx < temp1.getCount() ; iIdx++){     CaDescriptor element    = temp1.get(iIdx); dc.indent(); dc.getPs().println(iIdx);    if ( element != null ) {dc.indent();dc.getPs().println("element") ;retVal +=element.dump(dc);}}}
-dc.decreaseIndent();
+        {
+            ArrayList<CaDescriptor> temp1 = descriptors;
+            for (int iIdx=0; iIdx < temp1.getCount() ; iIdx++) {
+                CaDescriptor element    = temp1.get(iIdx);
+                dc.indent();
+                dc.getPs().println(iIdx);
+                if ( element != null ) {
+                    dc.indent();
+                    dc.getPs().println("element") ;
+                    retVal +=element.dump(dc);
+                }
+            }
+        }
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for header
+    // Getter for header
     //public APDUHeader getHeader()
     //{
     //    return header ;
     //}
 
-    
+
     // Setter for header
     //public void setHeader(APDUHeader val)
     //{
@@ -218,7 +318,7 @@ dc.decreaseIndent();
     //    return length ;
     //}
 
-    
+
     // Setter for length
     //public void setLength(short val)
     //{
@@ -230,7 +330,7 @@ dc.decreaseIndent();
     //    return transactionId ;
     //}
 
-    
+
     // Setter for transactionId
     //public void setTransactionId(short val)
     //{
@@ -242,7 +342,7 @@ dc.decreaseIndent();
     //    return transportStreamId ;
     //}
 
-    
+
     // Setter for transportStreamId
     //public void setTransportStreamId(int val)
     //{
@@ -254,7 +354,7 @@ dc.decreaseIndent();
     //    return program_number ;
     //}
 
-    
+
     // Setter for program_number
     //public void setProgram_number(int val)
     //{
@@ -266,7 +366,7 @@ dc.decreaseIndent();
     //    return sourceId ;
     //}
 
-    
+
     // Setter for sourceId
     //public void setSourceId(int val)
     //{
@@ -278,7 +378,7 @@ dc.decreaseIndent();
     //    return eventId ;
     //}
 
-    
+
     // Setter for eventId
     //public void setEventId(int val)
     //{
@@ -290,7 +390,7 @@ dc.decreaseIndent();
     //    return currentNextIndicator ;
     //}
 
-    
+
     // Setter for currentNextIndicator
     //public void setCurrentNextIndicator(short val)
     //{
@@ -302,7 +402,7 @@ dc.decreaseIndent();
     //    return bf1 ;
     //}
 
-    
+
     // Setter for bf1
     //public void setBf1(BitField_8 val)
     //{
@@ -314,7 +414,7 @@ dc.decreaseIndent();
     //    return descriptors ;
     //}
 
-    
+
     // Setter for descriptors
     //public void setDescriptors(ArrayList<CaDescriptor> val)
     //{
@@ -326,62 +426,66 @@ dc.decreaseIndent();
     {
         return ( bf1.getValue() & 0x000000fe ) >> 1 ;
     }
-    
-    
+
+
     public void setReserved(int val)
     {
         bf1.setValue ( (bf1.getValue() & 0xffffff01) | ( (val << 1 ) & 0x000000fe));
     }
-    
-    
+
+
     public int getCurrentNext( )
     {
         return ( bf1.getValue() & 0x00000001 ) >> 0 ;
     }
-    
-    
+
+
     public void setCurrentNext(int val)
     {
         bf1.setValue ( (bf1.getValue() & 0xfffffffe) | ( (val << 0 ) & 0x00000001));
     }
-    
-    
+
+
     public int addToDescriptors(CaDescriptor val)
     {
-            descriptors.add(val); return descriptors.size();
+        descriptors.add(val);
+        return descriptors.size();
     }
-    
-    
+
+
     public int removeFromDescriptors(CaDescriptor val)
     {
-            descriptors.remove(val); return descriptors.size();
+        descriptors.remove(val);
+        return descriptors.size();
     }
-    
-    
+
+
     public int removeNthFromDescriptors(int idx)
     {
-            descriptors.remove(idx); return descriptors.size();
+        descriptors.remove(idx);
+        return descriptors.size();
     }
-    
-    
+
+
     public int emptyDescriptors(int idx)
     {
-            descriptors.clear(); return descriptors.size();
+        descriptors.clear();
+        return descriptors.size();
     }
-    
-    
+
+
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
-     public void setHeader(APDUHeader header)
+
+
+    public void setHeader(APDUHeader header)
     {
-         this.header= header;   
+        this.header= header;
     }
-    
+
     public APDUHeader getHeader()
     {
         return this.header;

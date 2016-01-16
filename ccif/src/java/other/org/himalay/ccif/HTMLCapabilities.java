@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.ccif ;
@@ -15,7 +15,7 @@ import org.himalay.msgs.runtime.Created;
 import org.himalay.msgs.runtime.*;
 @Created(date = "Fri Jan 15 01:32:55 EST 2016")
 
-public  class HTMLCapabilities extends BinStruct implements PublicBinMsg{
+public  class HTMLCapabilities extends BinStruct implements PublicBinMsg {
 
 
 
@@ -30,95 +30,116 @@ public  class HTMLCapabilities extends BinStruct implements PublicBinMsg{
     // imageSupport
     public short imageSupport ;
 
-        public HTMLCapabilities () // throws Exception
+    public HTMLCapabilities () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize linkSupport
-        
+
         // Initialize tableSupport
-        
+
         // Initialize listSupport
-        
+
         // Initialize imageSupport
-        
+
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-     return read(istream);
-       }
-   
-    public int read(DataInputStream istream) throws IOException 
+
+        return read(istream);
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read linkSupport
-        {linkSupport=(short)(istream.readUnsignedByte()); retVal+=1;}
+        // read linkSupport
+        {
+            linkSupport=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read tableSupport
-        {tableSupport=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            tableSupport=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read listSupport
-        {listSupport=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            listSupport=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read imageSupport
-        {imageSupport=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            imageSupport=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
 
         postRead();
         return retVal;
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        
-        
-        
-        
-    
-                // write linkSupport
-        ostream.writeByte(linkSupport); retVal +=1;
+
+
+
+
+
+        // write linkSupport
+        ostream.writeByte(linkSupport);
+        retVal +=1;
         // write tableSupport
-        ostream.writeByte(tableSupport); retVal +=1;
+        ostream.writeByte(tableSupport);
+        retVal +=1;
         // write listSupport
-        ostream.writeByte(listSupport); retVal +=1;
+        ostream.writeByte(listSupport);
+        retVal +=1;
         // write imageSupport
-        ostream.writeByte(imageSupport); retVal +=1;
-postWrite();
+        ostream.writeByte(imageSupport);
+        retVal +=1;
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("HTMLCapabilities\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("HTMLCapabilities\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write linkSupport
-        dc.indent();dc.getPs().println("linkSupport="+linkSupport+"(0x"+ Integer.toHexString(linkSupport) + ")" );
+        dc.indent();
+        dc.getPs().println("linkSupport="+linkSupport+"(0x"+ Integer.toHexString(linkSupport) + ")" );
         // write tableSupport
-        dc.indent();dc.getPs().println("tableSupport="+tableSupport+"(0x"+ Integer.toHexString(tableSupport) + ")" );
+        dc.indent();
+        dc.getPs().println("tableSupport="+tableSupport+"(0x"+ Integer.toHexString(tableSupport) + ")" );
         // write listSupport
-        dc.indent();dc.getPs().println("listSupport="+listSupport+"(0x"+ Integer.toHexString(listSupport) + ")" );
+        dc.indent();
+        dc.getPs().println("listSupport="+listSupport+"(0x"+ Integer.toHexString(listSupport) + ")" );
         // write imageSupport
-        dc.indent();dc.getPs().println("imageSupport="+imageSupport+"(0x"+ Integer.toHexString(imageSupport) + ")" );
-dc.decreaseIndent();
+        dc.indent();
+        dc.getPs().println("imageSupport="+imageSupport+"(0x"+ Integer.toHexString(imageSupport) + ")" );
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for linkSupport
+    // Getter for linkSupport
     //public short getLinkSupport()
     //{
     //    return linkSupport ;
     //}
 
-    
+
     // Setter for linkSupport
     //public void setLinkSupport(short val)
     //{
@@ -130,7 +151,7 @@ dc.decreaseIndent();
     //    return tableSupport ;
     //}
 
-    
+
     // Setter for tableSupport
     //public void setTableSupport(short val)
     //{
@@ -142,7 +163,7 @@ dc.decreaseIndent();
     //    return listSupport ;
     //}
 
-    
+
     // Setter for listSupport
     //public void setListSupport(short val)
     //{
@@ -154,7 +175,7 @@ dc.decreaseIndent();
     //    return imageSupport ;
     //}
 
-    
+
     // Setter for imageSupport
     //public void setImageSupport(short val)
     //{
@@ -164,11 +185,11 @@ dc.decreaseIndent();
 
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
+
+
 
 }
 

@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.ccif ;
@@ -15,7 +15,7 @@ import org.himalay.msgs.runtime.Created;
 import org.himalay.msgs.runtime.*;
 @Created(date = "Fri Jan 15 01:33:05 EST 2016")
 
-public  class FirmwareVerReportM_Mode extends BinStruct implements PublicBinMsg{
+public  class FirmwareVerReportM_Mode extends BinStruct implements PublicBinMsg {
 
 
 
@@ -26,32 +26,35 @@ public  class FirmwareVerReportM_Mode extends BinStruct implements PublicBinMsg{
     // fwareDate
     public FirmWareDate fwareDate ;
 
-        public FirmwareVerReportM_Mode () // throws Exception
+    public FirmwareVerReportM_Mode () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize firmWareVersionCharacter
-        firmWareVersionCharacter= new ByteArray();firmWareVersionCharacter.setSizeType("FIRST_UI8");
+        firmWareVersionCharacter= new ByteArray();
+        firmWareVersionCharacter.setSizeType("FIRST_UI8");
         // Initialize fwareDate
         fwareDate = new FirmWareDate();
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-     return read(istream);
-       }
-   
-    public int read(DataInputStream istream) throws IOException 
+
+        return read(istream);
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read firmWareVersionCharacter
-        {retVal+=firmWareVersionCharacter.read(istream); }
+        // read firmWareVersionCharacter
+        {
+            retVal+=firmWareVersionCharacter.read(istream);
+        }
         // read fwareDate
         retVal += fwareDate.read(istream);
 
@@ -60,43 +63,54 @@ public  class FirmwareVerReportM_Mode extends BinStruct implements PublicBinMsg{
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        { /** fix dependent sizes for firmWareVersionCharacter**/  }
-        { /** fix dependent sizes for fwareDate **/  }
-    
-                // write firmWareVersionCharacter
-        {retVal += firmWareVersionCharacter.write(ostream);}
+        {   /** fix dependent sizes for firmWareVersionCharacter**/
+        }
+        {   /** fix dependent sizes for fwareDate **/
+        }
+
+        // write firmWareVersionCharacter
+        {
+            retVal += firmWareVersionCharacter.write(ostream);
+        }
         // write fwareDate
         if (fwareDate!=null)retVal +=fwareDate.write(ostream);
-postWrite();
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("FirmwareVerReportM_Mode\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("FirmwareVerReportM_Mode\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write firmWareVersionCharacter
-        dc.indent();dc.getPs().print("firmWareVersionCharacter: "+firmWareVersionCharacter.getSize()+"(0x"+Integer.toHexString(firmWareVersionCharacter.getSize())+")\n");this.firmWareVersionCharacter.dump(dc);
+        dc.indent();
+        dc.getPs().print("firmWareVersionCharacter: "+firmWareVersionCharacter.getSize()+"(0x"+Integer.toHexString(firmWareVersionCharacter.getSize())+")\n");
+        this.firmWareVersionCharacter.dump(dc);
         // write fwareDate
-        if ( fwareDate != null ) {dc.indent();dc.getPs().println("fwareDate") ;retVal +=fwareDate.dump(dc);}
-dc.decreaseIndent();
+        if ( fwareDate != null ) {
+            dc.indent();
+            dc.getPs().println("fwareDate") ;
+            retVal +=fwareDate.dump(dc);
+        }
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for firmWareVersionCharacter
+    // Getter for firmWareVersionCharacter
     //public ByteArray getFirmWareVersionCharacter()
     //{
     //    return firmWareVersionCharacter ;
     //}
 
-    
+
     // Setter for firmWareVersionCharacter
     //public void setFirmWareVersionCharacter(ByteArray val)
     //{
@@ -108,7 +122,7 @@ dc.decreaseIndent();
     //    return fwareDate ;
     //}
 
-    
+
     // Setter for fwareDate
     //public void setFwareDate(FirmWareDate val)
     //{
@@ -120,15 +134,15 @@ dc.decreaseIndent();
     {
         this.firmWareVersionCharacter.setData(val);
     }
-    
-    
+
+
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
+
+
 
 }
 

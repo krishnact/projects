@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.ccif ;
@@ -15,7 +15,7 @@ import org.himalay.msgs.runtime.Created;
 import org.himalay.msgs.runtime.*;
 @Created(date = "Fri Jan 15 01:33:05 EST 2016")
 
-public  class FirmWareDate extends BinStruct implements PublicBinMsg{
+public  class FirmWareDate extends BinStruct implements PublicBinMsg {
 
 
 
@@ -28,86 +28,102 @@ public  class FirmWareDate extends BinStruct implements PublicBinMsg{
     // date
     public short date ;
 
-        public FirmWareDate () // throws Exception
+    public FirmWareDate () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize year
-        
+
         // Initialize month
-        
+
         // Initialize date
-        
+
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-     return read(istream);
-       }
-   
-    public int read(DataInputStream istream) throws IOException 
+
+        return read(istream);
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read year
-        {year=istream.readUnsignedShort(); retVal+=2;}
+        // read year
+        {
+            year=istream.readUnsignedShort();
+            retVal+=2;
+        }
         // read month
-        {month=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            month=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read date
-        {date=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            date=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
 
         postRead();
         return retVal;
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        
-        
-        
-    
-                // write year
-        ostream.writeShort(year); retVal +=2;
+
+
+
+
+        // write year
+        ostream.writeShort(year);
+        retVal +=2;
         // write month
-        ostream.writeByte(month); retVal +=1;
+        ostream.writeByte(month);
+        retVal +=1;
         // write date
-        ostream.writeByte(date); retVal +=1;
-postWrite();
+        ostream.writeByte(date);
+        retVal +=1;
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("FirmWareDate\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("FirmWareDate\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write year
-        dc.indent();dc.getPs().println("year="+year+"(0x"+ Integer.toHexString(year) + ")" );
+        dc.indent();
+        dc.getPs().println("year="+year+"(0x"+ Integer.toHexString(year) + ")" );
         // write month
-        dc.indent();dc.getPs().println("month="+month+"(0x"+ Integer.toHexString(month) + ")" );
+        dc.indent();
+        dc.getPs().println("month="+month+"(0x"+ Integer.toHexString(month) + ")" );
         // write date
-        dc.indent();dc.getPs().println("date="+date+"(0x"+ Integer.toHexString(date) + ")" );
-dc.decreaseIndent();
+        dc.indent();
+        dc.getPs().println("date="+date+"(0x"+ Integer.toHexString(date) + ")" );
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for year
+    // Getter for year
     //public int getYear()
     //{
     //    return year ;
     //}
 
-    
+
     // Setter for year
     //public void setYear(int val)
     //{
@@ -119,7 +135,7 @@ dc.decreaseIndent();
     //    return month ;
     //}
 
-    
+
     // Setter for month
     //public void setMonth(short val)
     //{
@@ -131,7 +147,7 @@ dc.decreaseIndent();
     //    return date ;
     //}
 
-    
+
     // Setter for date
     //public void setDate(short val)
     //{
@@ -141,11 +157,11 @@ dc.decreaseIndent();
 
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
+
+
 
 }
 

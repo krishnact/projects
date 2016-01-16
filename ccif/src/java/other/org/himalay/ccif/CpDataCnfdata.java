@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.ccif ;
@@ -30,105 +30,157 @@ public  class CpDataCnfdata extends   APDUBase_1Factory.APDUBase_1 { //Concrete 
     // cadatanbr
     public ArrayList<CpDataReqMsg> cadatanbr ;
 
-        public CpDataCnfdata () // throws Exception
+    public CpDataCnfdata () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize header
         header = new APDUHeader();
         // Initialize length
-        
+
         // Initialize cpSystemId
-        
+
         // Initialize cadatanbr
-        cadatanbr= new ArrayList<CpDataReqMsg>();cadatanbr.setMemberSize(0);
+        cadatanbr= new ArrayList<CpDataReqMsg>();
+        cadatanbr.setMemberSize(0);
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-  preRead();
-    int retVal= 0;
-                // read length
-        {length=(short)(istream.readUnsignedByte()); retVal+=1;}
-        // read cpSystemId
-        {cpSystemId=(short)(istream.readUnsignedByte()); retVal+=1;}
-        // read cadatanbr
-        for (; istream.available() > 0 ; ){     CpDataReqMsg temp;    temp = new CpDataReqMsg();    retVal += temp.read(istream);    cadatanbr.add(temp);}
 
-postRead();
-        return retVal;
+        preRead();
+        int retVal= 0;
+        // read length
+        {
+            length=(short)(istream.readUnsignedByte());
+            retVal+=1;
         }
-   
-    public int read(DataInputStream istream) throws IOException 
+        // read cpSystemId
+        {
+            cpSystemId=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
+        // read cadatanbr
+        for (; istream.available() > 0 ; ) {
+            CpDataReqMsg temp;
+            temp = new CpDataReqMsg();
+            retVal += temp.read(istream);
+            cadatanbr.add(temp);
+        }
+
+        postRead();
+        return retVal;
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read header
+        // read header
         retVal += header.read(istream);
         // read length
-        {length=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            length=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read cpSystemId
-        {cpSystemId=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            cpSystemId=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read cadatanbr
-        for (; istream.available() > 0 ; ){     CpDataReqMsg temp;    temp = new CpDataReqMsg();    retVal += temp.read(istream);    cadatanbr.add(temp);}
+        for (; istream.available() > 0 ; ) {
+            CpDataReqMsg temp;
+            temp = new CpDataReqMsg();
+            retVal += temp.read(istream);
+            cadatanbr.add(temp);
+        }
 
         postRead();
         return retVal;
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        { /** fix dependent sizes for header **/  }
-        
-        
-        { /** fix dependent sizes for cadatanbr**/  }
-    
-                // write header
+        {   /** fix dependent sizes for header **/
+        }
+
+
+        {   /** fix dependent sizes for cadatanbr**/
+        }
+
+        // write header
         if (header!=null)retVal +=header.write(ostream);
         // write length
-        ostream.writeByte(length); retVal +=1;
+        ostream.writeByte(length);
+        retVal +=1;
         // write cpSystemId
-        ostream.writeByte(cpSystemId); retVal +=1;
+        ostream.writeByte(cpSystemId);
+        retVal +=1;
         // write cadatanbr
-        {ArrayList<CpDataReqMsg> temp1 = cadatanbr;for (int iIdx=0; iIdx < temp1.getCount() ; iIdx++){     CpDataReqMsg temp2    =    temp1.get(iIdx);    if (temp2!=null)retVal +=temp2.write(ostream);}}
-postWrite();
+        {
+            ArrayList<CpDataReqMsg> temp1 = cadatanbr;
+            for (int iIdx=0; iIdx < temp1.getCount() ; iIdx++) {
+                CpDataReqMsg temp2    =    temp1.get(iIdx);
+                if (temp2!=null)retVal +=temp2.write(ostream);
+            }
+        }
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("CpDataCnfdata\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("CpDataCnfdata\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write header
-        if ( header != null ) {dc.indent();dc.getPs().println("header") ;retVal +=header.dump(dc);}
+        if ( header != null ) {
+            dc.indent();
+            dc.getPs().println("header") ;
+            retVal +=header.dump(dc);
+        }
         // write length
-        dc.indent();dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
+        dc.indent();
+        dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
         // write cpSystemId
-        dc.indent();dc.getPs().println("cpSystemId="+cpSystemId+"(0x"+ Integer.toHexString(cpSystemId) + ")" );
+        dc.indent();
+        dc.getPs().println("cpSystemId="+cpSystemId+"(0x"+ Integer.toHexString(cpSystemId) + ")" );
         // write cadatanbr
-        { ArrayList<CpDataReqMsg> temp1 = cadatanbr;for (int iIdx=0; iIdx < temp1.getCount() ; iIdx++){     CpDataReqMsg element    = temp1.get(iIdx); dc.indent(); dc.getPs().println(iIdx);    if ( element != null ) {dc.indent();dc.getPs().println("element") ;retVal +=element.dump(dc);}}}
-dc.decreaseIndent();
+        {
+            ArrayList<CpDataReqMsg> temp1 = cadatanbr;
+            for (int iIdx=0; iIdx < temp1.getCount() ; iIdx++) {
+                CpDataReqMsg element    = temp1.get(iIdx);
+                dc.indent();
+                dc.getPs().println(iIdx);
+                if ( element != null ) {
+                    dc.indent();
+                    dc.getPs().println("element") ;
+                    retVal +=element.dump(dc);
+                }
+            }
+        }
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for header
+    // Getter for header
     //public APDUHeader getHeader()
     //{
     //    return header ;
     //}
 
-    
+
     // Setter for header
     //public void setHeader(APDUHeader val)
     //{
@@ -140,7 +192,7 @@ dc.decreaseIndent();
     //    return length ;
     //}
 
-    
+
     // Setter for length
     //public void setLength(short val)
     //{
@@ -152,7 +204,7 @@ dc.decreaseIndent();
     //    return cpSystemId ;
     //}
 
-    
+
     // Setter for cpSystemId
     //public void setCpSystemId(short val)
     //{
@@ -164,7 +216,7 @@ dc.decreaseIndent();
     //    return cadatanbr ;
     //}
 
-    
+
     // Setter for cadatanbr
     //public void setCadatanbr(ArrayList<CpDataReqMsg> val)
     //{
@@ -174,40 +226,44 @@ dc.decreaseIndent();
 
     public int addToCadatanbr(CpDataReqMsg val)
     {
-            cadatanbr.add(val); return cadatanbr.size();
+        cadatanbr.add(val);
+        return cadatanbr.size();
     }
-    
-    
+
+
     public int removeFromCadatanbr(CpDataReqMsg val)
     {
-            cadatanbr.remove(val); return cadatanbr.size();
+        cadatanbr.remove(val);
+        return cadatanbr.size();
     }
-    
-    
+
+
     public int removeNthFromCadatanbr(int idx)
     {
-            cadatanbr.remove(idx); return cadatanbr.size();
+        cadatanbr.remove(idx);
+        return cadatanbr.size();
     }
-    
-    
+
+
     public int emptyCadatanbr(int idx)
     {
-            cadatanbr.clear(); return cadatanbr.size();
+        cadatanbr.clear();
+        return cadatanbr.size();
     }
-    
-    
+
+
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
-     public void setHeader(APDUHeader header)
+
+
+    public void setHeader(APDUHeader header)
     {
-         this.header= header;   
+        this.header= header;
     }
-    
+
     public APDUHeader getHeader()
     {
         return this.header;

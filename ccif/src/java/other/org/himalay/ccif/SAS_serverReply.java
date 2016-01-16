@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.ccif ;
@@ -30,105 +30,137 @@ public  class SAS_serverReply extends   APDUBaseFactory.APDUBase { //Concrete ty
     // messages
     public ByteArray messages ;
 
-        public SAS_serverReply () // throws Exception
+    public SAS_serverReply () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize header
         header = new APDUHeader();
         // Initialize length
-        
+
         // Initialize transaction_nb
-        
+
         // Initialize messages
-        messages= new ByteArray();messages.setSizeType("FIRST_UI16");
+        messages= new ByteArray();
+        messages.setSizeType("FIRST_UI16");
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-  preRead();
-    int retVal= 0;
-                // read length
-        {length=(short)(istream.readUnsignedByte()); retVal+=1;}
-        // read transaction_nb
-        {transaction_nb=(short)(istream.readUnsignedByte()); retVal+=1;}
-        // read messages
-        {retVal+=messages.read(istream); }
 
-postRead();
-        return retVal;
+        preRead();
+        int retVal= 0;
+        // read length
+        {
+            length=(short)(istream.readUnsignedByte());
+            retVal+=1;
         }
-   
-    public int read(DataInputStream istream) throws IOException 
+        // read transaction_nb
+        {
+            transaction_nb=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
+        // read messages
+        {
+            retVal+=messages.read(istream);
+        }
+
+        postRead();
+        return retVal;
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read header
+        // read header
         retVal += header.read(istream);
         // read length
-        {length=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            length=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read transaction_nb
-        {transaction_nb=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            transaction_nb=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read messages
-        {retVal+=messages.read(istream); }
+        {
+            retVal+=messages.read(istream);
+        }
 
         postRead();
         return retVal;
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        { /** fix dependent sizes for header **/  }
-        
-        
-        { /** fix dependent sizes for messages**/  }
-    
-                // write header
+        {   /** fix dependent sizes for header **/
+        }
+
+
+        {   /** fix dependent sizes for messages**/
+        }
+
+        // write header
         if (header!=null)retVal +=header.write(ostream);
         // write length
-        ostream.writeByte(length); retVal +=1;
+        ostream.writeByte(length);
+        retVal +=1;
         // write transaction_nb
-        ostream.writeByte(transaction_nb); retVal +=1;
+        ostream.writeByte(transaction_nb);
+        retVal +=1;
         // write messages
-        {retVal += messages.write(ostream);}
-postWrite();
+        {
+            retVal += messages.write(ostream);
+        }
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("SAS_serverReply\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("SAS_serverReply\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write header
-        if ( header != null ) {dc.indent();dc.getPs().println("header") ;retVal +=header.dump(dc);}
+        if ( header != null ) {
+            dc.indent();
+            dc.getPs().println("header") ;
+            retVal +=header.dump(dc);
+        }
         // write length
-        dc.indent();dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
+        dc.indent();
+        dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
         // write transaction_nb
-        dc.indent();dc.getPs().println("transaction_nb="+transaction_nb+"(0x"+ Integer.toHexString(transaction_nb) + ")" );
+        dc.indent();
+        dc.getPs().println("transaction_nb="+transaction_nb+"(0x"+ Integer.toHexString(transaction_nb) + ")" );
         // write messages
-        dc.indent();dc.getPs().print("messages: "+messages.getSize()+"(0x"+Integer.toHexString(messages.getSize())+")\n");this.messages.dump(dc);
-dc.decreaseIndent();
+        dc.indent();
+        dc.getPs().print("messages: "+messages.getSize()+"(0x"+Integer.toHexString(messages.getSize())+")\n");
+        this.messages.dump(dc);
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for header
+    // Getter for header
     //public APDUHeader getHeader()
     //{
     //    return header ;
     //}
 
-    
+
     // Setter for header
     //public void setHeader(APDUHeader val)
     //{
@@ -140,7 +172,7 @@ dc.decreaseIndent();
     //    return length ;
     //}
 
-    
+
     // Setter for length
     //public void setLength(short val)
     //{
@@ -152,7 +184,7 @@ dc.decreaseIndent();
     //    return transaction_nb ;
     //}
 
-    
+
     // Setter for transaction_nb
     //public void setTransaction_nb(short val)
     //{
@@ -164,7 +196,7 @@ dc.decreaseIndent();
     //    return messages ;
     //}
 
-    
+
     // Setter for messages
     //public void setMessages(ByteArray val)
     //{
@@ -176,20 +208,20 @@ dc.decreaseIndent();
     {
         this.messages.setData(val);
     }
-    
-    
+
+
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
-     public void setHeader(APDUHeader header)
+
+
+    public void setHeader(APDUHeader header)
     {
-         this.header= header;   
+        this.header= header;
     }
-    
+
     public APDUHeader getHeader()
     {
         return this.header;

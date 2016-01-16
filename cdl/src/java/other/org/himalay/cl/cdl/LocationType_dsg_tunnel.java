@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.cl.cdl ;
@@ -34,11 +34,11 @@ public  class LocationType_dsg_tunnel extends   LocationTypeFactory.LocationType
     // destination_port_number
     public int destination_port_number ;
 
-        public LocationType_dsg_tunnel () // throws Exception
+    public LocationType_dsg_tunnel () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize dsgTunnelAddress
@@ -48,90 +48,116 @@ public  class LocationType_dsg_tunnel extends   LocationTypeFactory.LocationType
         // Initialize destination_ip_address
         destination_ip_address = new IPv6Address();
         // Initialize source_port_number
-        
+
         // Initialize destination_port_number
-        
+
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-     return read(istream);
-       }
-   
-    public int read(DataInputStream istream) throws IOException 
+
+        return read(istream);
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read dsgTunnelAddress
+        // read dsgTunnelAddress
         retVal += dsgTunnelAddress.read(istream);
         // read source_ip_address
         retVal += source_ip_address.read(istream);
         // read destination_ip_address
         retVal += destination_ip_address.read(istream);
         // read source_port_number
-        {source_port_number=istream.readUnsignedShort(); retVal+=2;}
+        {
+            source_port_number=istream.readUnsignedShort();
+            retVal+=2;
+        }
         // read destination_port_number
-        {destination_port_number=istream.readUnsignedShort(); retVal+=2;}
+        {
+            destination_port_number=istream.readUnsignedShort();
+            retVal+=2;
+        }
 
         postRead();
         return retVal;
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        { /** fix dependent sizes for dsgTunnelAddress **/  }
-        { /** fix dependent sizes for source_ip_address **/  }
-        { /** fix dependent sizes for destination_ip_address **/  }
-        
-        
-    
-                // write dsgTunnelAddress
+        {   /** fix dependent sizes for dsgTunnelAddress **/
+        }
+        {   /** fix dependent sizes for source_ip_address **/
+        }
+        {   /** fix dependent sizes for destination_ip_address **/
+        }
+
+
+
+        // write dsgTunnelAddress
         if (dsgTunnelAddress!=null)retVal +=dsgTunnelAddress.write(ostream);
         // write source_ip_address
         if (source_ip_address!=null)retVal +=source_ip_address.write(ostream);
         // write destination_ip_address
         if (destination_ip_address!=null)retVal +=destination_ip_address.write(ostream);
         // write source_port_number
-        ostream.writeShort(source_port_number); retVal +=2;
+        ostream.writeShort(source_port_number);
+        retVal +=2;
         // write destination_port_number
-        ostream.writeShort(destination_port_number); retVal +=2;
-postWrite();
+        ostream.writeShort(destination_port_number);
+        retVal +=2;
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("LocationType_dsg_tunnel\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("LocationType_dsg_tunnel\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write dsgTunnelAddress
-        if ( dsgTunnelAddress != null ) {dc.indent();dc.getPs().println("dsgTunnelAddress") ;retVal +=dsgTunnelAddress.dump(dc);}
+        if ( dsgTunnelAddress != null ) {
+            dc.indent();
+            dc.getPs().println("dsgTunnelAddress") ;
+            retVal +=dsgTunnelAddress.dump(dc);
+        }
         // write source_ip_address
-        if ( source_ip_address != null ) {dc.indent();dc.getPs().println("source_ip_address") ;retVal +=source_ip_address.dump(dc);}
+        if ( source_ip_address != null ) {
+            dc.indent();
+            dc.getPs().println("source_ip_address") ;
+            retVal +=source_ip_address.dump(dc);
+        }
         // write destination_ip_address
-        if ( destination_ip_address != null ) {dc.indent();dc.getPs().println("destination_ip_address") ;retVal +=destination_ip_address.dump(dc);}
+        if ( destination_ip_address != null ) {
+            dc.indent();
+            dc.getPs().println("destination_ip_address") ;
+            retVal +=destination_ip_address.dump(dc);
+        }
         // write source_port_number
-        dc.indent();dc.getPs().println("source_port_number="+source_port_number+"(0x"+ Integer.toHexString(source_port_number) + ")" );
+        dc.indent();
+        dc.getPs().println("source_port_number="+source_port_number+"(0x"+ Integer.toHexString(source_port_number) + ")" );
         // write destination_port_number
-        dc.indent();dc.getPs().println("destination_port_number="+destination_port_number+"(0x"+ Integer.toHexString(destination_port_number) + ")" );
-dc.decreaseIndent();
+        dc.indent();
+        dc.getPs().println("destination_port_number="+destination_port_number+"(0x"+ Integer.toHexString(destination_port_number) + ")" );
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for dsgTunnelAddress
+    // Getter for dsgTunnelAddress
     //public IPv4Address getDsgTunnelAddress()
     //{
     //    return dsgTunnelAddress ;
     //}
 
-    
+
     // Setter for dsgTunnelAddress
     //public void setDsgTunnelAddress(IPv4Address val)
     //{
@@ -143,7 +169,7 @@ dc.decreaseIndent();
     //    return source_ip_address ;
     //}
 
-    
+
     // Setter for source_ip_address
     //public void setSource_ip_address(IPv6Address val)
     //{
@@ -155,7 +181,7 @@ dc.decreaseIndent();
     //    return destination_ip_address ;
     //}
 
-    
+
     // Setter for destination_ip_address
     //public void setDestination_ip_address(IPv6Address val)
     //{
@@ -167,7 +193,7 @@ dc.decreaseIndent();
     //    return source_port_number ;
     //}
 
-    
+
     // Setter for source_port_number
     //public void setSource_port_number(int val)
     //{
@@ -179,7 +205,7 @@ dc.decreaseIndent();
     //    return destination_port_number ;
     //}
 
-    
+
     // Setter for destination_port_number
     //public void setDestination_port_number(int val)
     //{
@@ -189,11 +215,11 @@ dc.decreaseIndent();
 
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
+
+
 
 }
 

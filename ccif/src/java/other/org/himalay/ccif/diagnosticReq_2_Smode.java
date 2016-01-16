@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.ccif ;
@@ -15,7 +15,7 @@ import org.himalay.msgs.runtime.Created;
 import org.himalay.msgs.runtime.*;
 @Created(date = "Fri Jan 15 01:33:06 EST 2016")
 
-public  class diagnosticReq_2_Smode extends BinStruct implements PublicBinMsg{
+public  class diagnosticReq_2_Smode extends BinStruct implements PublicBinMsg {
 
 
 
@@ -26,77 +26,91 @@ public  class diagnosticReq_2_Smode extends BinStruct implements PublicBinMsg{
     // selfDiagnostics
     public ByteArray selfDiagnostics ;
 
-        public diagnosticReq_2_Smode () // throws Exception
+    public diagnosticReq_2_Smode () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize length
-        
+
         // Initialize selfDiagnostics
-        selfDiagnostics= new ByteArray();selfDiagnostics.setSizeType("FIRST_UI8");
+        selfDiagnostics= new ByteArray();
+        selfDiagnostics.setSizeType("FIRST_UI8");
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-     return read(istream);
-       }
-   
-    public int read(DataInputStream istream) throws IOException 
+
+        return read(istream);
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read length
-        {length=(short)(istream.readUnsignedByte()); retVal+=1;}
+        // read length
+        {
+            length=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read selfDiagnostics
-        {retVal+=selfDiagnostics.read(istream); }
+        {
+            retVal+=selfDiagnostics.read(istream);
+        }
 
         postRead();
         return retVal;
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        
-        { /** fix dependent sizes for selfDiagnostics**/  }
-    
-                // write length
-        ostream.writeByte(length); retVal +=1;
+
+        {   /** fix dependent sizes for selfDiagnostics**/
+        }
+
+        // write length
+        ostream.writeByte(length);
+        retVal +=1;
         // write selfDiagnostics
-        {retVal += selfDiagnostics.write(ostream);}
-postWrite();
+        {
+            retVal += selfDiagnostics.write(ostream);
+        }
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("diagnosticReq_2_Smode\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("diagnosticReq_2_Smode\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write length
-        dc.indent();dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
+        dc.indent();
+        dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
         // write selfDiagnostics
-        dc.indent();dc.getPs().print("selfDiagnostics: "+selfDiagnostics.getSize()+"(0x"+Integer.toHexString(selfDiagnostics.getSize())+")\n");this.selfDiagnostics.dump(dc);
-dc.decreaseIndent();
+        dc.indent();
+        dc.getPs().print("selfDiagnostics: "+selfDiagnostics.getSize()+"(0x"+Integer.toHexString(selfDiagnostics.getSize())+")\n");
+        this.selfDiagnostics.dump(dc);
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for length
+    // Getter for length
     //public short getLength()
     //{
     //    return length ;
     //}
 
-    
+
     // Setter for length
     //public void setLength(short val)
     //{
@@ -108,7 +122,7 @@ dc.decreaseIndent();
     //    return selfDiagnostics ;
     //}
 
-    
+
     // Setter for selfDiagnostics
     //public void setSelfDiagnostics(ByteArray val)
     //{
@@ -120,15 +134,15 @@ dc.decreaseIndent();
     {
         this.selfDiagnostics.setData(val);
     }
-    
-    
+
+
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
+
+
 
 }
 

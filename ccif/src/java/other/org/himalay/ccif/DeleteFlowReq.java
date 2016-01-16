@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.ccif ;
@@ -28,94 +28,119 @@ public  class DeleteFlowReq extends   APDUBaseFactory.APDUBase { //Concrete type
     // flowId
     public int flowId ;
 
-        public DeleteFlowReq () // throws Exception
+    public DeleteFlowReq () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize header
         header = new APDUHeader();
         // Initialize length
-        
+
         // Initialize flowId
-        
+
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-  preRead();
-    int retVal= 0;
-                // read length
-        {length=(short)(istream.readUnsignedByte()); retVal+=1;}
-        // read flowId
-        { flowId= BinPrimitive.readUI24(istream);                                  retVal += 3;                                            }
 
-postRead();
-        return retVal;
+        preRead();
+        int retVal= 0;
+        // read length
+        {
+            length=(short)(istream.readUnsignedByte());
+            retVal+=1;
         }
-   
-    public int read(DataInputStream istream) throws IOException 
+        // read flowId
+        {
+            flowId= BinPrimitive.readUI24(istream);
+            retVal += 3;
+        }
+
+        postRead();
+        return retVal;
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read header
+        // read header
         retVal += header.read(istream);
         // read length
-        {length=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            length=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read flowId
-        { flowId= BinPrimitive.readUI24(istream);                                  retVal += 3;                                            }
+        {
+            flowId= BinPrimitive.readUI24(istream);
+            retVal += 3;
+        }
 
         postRead();
         return retVal;
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        { /** fix dependent sizes for header **/  }
-        
-        
-    
-                // write header
+        {   /** fix dependent sizes for header **/
+        }
+
+
+
+        // write header
         if (header!=null)retVal +=header.write(ostream);
         // write length
-        ostream.writeByte(length); retVal +=1;
+        ostream.writeByte(length);
+        retVal +=1;
         // write flowId
-        {ostream.writeByte((flowId  & 0x00FF0000)>>16);ostream.writeShort((flowId & 0x0000FFFF));retVal+=3;}
-postWrite();
+        {
+            ostream.writeByte((flowId  & 0x00FF0000)>>16);
+            ostream.writeShort((flowId & 0x0000FFFF));
+            retVal+=3;
+        }
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("DeleteFlowReq\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("DeleteFlowReq\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write header
-        if ( header != null ) {dc.indent();dc.getPs().println("header") ;retVal +=header.dump(dc);}
+        if ( header != null ) {
+            dc.indent();
+            dc.getPs().println("header") ;
+            retVal +=header.dump(dc);
+        }
         // write length
-        dc.indent();dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
+        dc.indent();
+        dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
         // write flowId
-        dc.indent();dc.getPs().println("flowId="+flowId+"(0x"+ Integer.toHexString(flowId)+")") ;
-dc.decreaseIndent();
+        dc.indent();
+        dc.getPs().println("flowId="+flowId+"(0x"+ Integer.toHexString(flowId)+")") ;
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for header
+    // Getter for header
     //public APDUHeader getHeader()
     //{
     //    return header ;
     //}
 
-    
+
     // Setter for header
     //public void setHeader(APDUHeader val)
     //{
@@ -127,7 +152,7 @@ dc.decreaseIndent();
     //    return length ;
     //}
 
-    
+
     // Setter for length
     //public void setLength(short val)
     //{
@@ -139,7 +164,7 @@ dc.decreaseIndent();
     //    return flowId ;
     //}
 
-    
+
     // Setter for flowId
     //public void setFlowId(int val)
     //{
@@ -149,16 +174,16 @@ dc.decreaseIndent();
 
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
-     public void setHeader(APDUHeader header)
+
+
+    public void setHeader(APDUHeader header)
     {
-         this.header= header;   
+        this.header= header;
     }
-    
+
     public APDUHeader getHeader()
     {
         return this.header;

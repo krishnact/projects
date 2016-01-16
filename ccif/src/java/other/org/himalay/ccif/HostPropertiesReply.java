@@ -1,5 +1,5 @@
 // Copyright (2013) Krishna C Tripathi. All rights reserved.
-// 
+//
 // You are not allowed to read/copy/distribute following code without explicit written authorization from Krishna C Tripathi
 //
 package org.himalay.ccif ;
@@ -28,94 +28,138 @@ public  class HostPropertiesReply extends   APDUBaseFactory.APDUBase { //Concret
     // hpr
     public ArrayList<HostPropertiesReplyMsg> hpr ;
 
-        public HostPropertiesReply () // throws Exception
+    public HostPropertiesReply () // throws Exception
     {
-            init();
+        init();
     }
-    
+
     private void init()
     {
         // Initialize header
         header = new APDUHeader();
         // Initialize length
-        
+
         // Initialize hpr
-        hpr= new ArrayList<HostPropertiesReplyMsg>();hpr.setMemberSize(0);
+        hpr= new ArrayList<HostPropertiesReplyMsg>();
+        hpr.setMemberSize(0);
     }
 
-    public int readNoHeader(DataInputStream istream) throws IOException 
+    public int readNoHeader(DataInputStream istream) throws IOException
     {
-    
-  preRead();
-    int retVal= 0;
-                // read length
-        {length=(short)(istream.readUnsignedByte()); retVal+=1;}
-        // read hpr
-        for (; istream.available() > 0 ; ){     HostPropertiesReplyMsg temp;    temp = new HostPropertiesReplyMsg();    retVal += temp.read(istream);    hpr.add(temp);}
 
-postRead();
-        return retVal;
+        preRead();
+        int retVal= 0;
+        // read length
+        {
+            length=(short)(istream.readUnsignedByte());
+            retVal+=1;
         }
-   
-    public int read(DataInputStream istream) throws IOException 
+        // read hpr
+        for (; istream.available() > 0 ; ) {
+            HostPropertiesReplyMsg temp;
+            temp = new HostPropertiesReplyMsg();
+            retVal += temp.read(istream);
+            hpr.add(temp);
+        }
+
+        postRead();
+        return retVal;
+    }
+
+    public int read(DataInputStream istream) throws IOException
     {
-    preRead();
+        preRead();
         int retVal= 0;
 
-                     // read header
+        // read header
         retVal += header.read(istream);
         // read length
-        {length=(short)(istream.readUnsignedByte()); retVal+=1;}
+        {
+            length=(short)(istream.readUnsignedByte());
+            retVal+=1;
+        }
         // read hpr
-        for (; istream.available() > 0 ; ){     HostPropertiesReplyMsg temp;    temp = new HostPropertiesReplyMsg();    retVal += temp.read(istream);    hpr.add(temp);}
+        for (; istream.available() > 0 ; ) {
+            HostPropertiesReplyMsg temp;
+            temp = new HostPropertiesReplyMsg();
+            retVal += temp.read(istream);
+            hpr.add(temp);
+        }
 
         postRead();
         return retVal;
     }
 
 
-    public int write(DataOutputStream ostream) throws IOException 
+    public int write(DataOutputStream ostream) throws IOException
     {
-    preWrite();
+        preWrite();
         int retVal= 0;
 
-        { /** fix dependent sizes for header **/  }
-        
-        { /** fix dependent sizes for hpr**/  }
-    
-                // write header
+        {   /** fix dependent sizes for header **/
+        }
+
+        {   /** fix dependent sizes for hpr**/
+        }
+
+        // write header
         if (header!=null)retVal +=header.write(ostream);
         // write length
-        ostream.writeByte(length); retVal +=1;
+        ostream.writeByte(length);
+        retVal +=1;
         // write hpr
-        {ArrayList<HostPropertiesReplyMsg> temp1 = hpr;for (int iIdx=0; iIdx < temp1.getCount() ; iIdx++){     HostPropertiesReplyMsg temp2    =    temp1.get(iIdx);    if (temp2!=null)retVal +=temp2.write(ostream);}}
-postWrite();
+        {
+            ArrayList<HostPropertiesReplyMsg> temp1 = hpr;
+            for (int iIdx=0; iIdx < temp1.getCount() ; iIdx++) {
+                HostPropertiesReplyMsg temp2    =    temp1.get(iIdx);
+                if (temp2!=null)retVal +=temp2.write(ostream);
+            }
+        }
+        postWrite();
         return retVal;
     }
-    
-    public int dump(DumpContext dc) throws IOException 
+
+    public int dump(DumpContext dc) throws IOException
     {
-        dc.indent();dc.getPs().print("HostPropertiesReply\n");
-    dc.increaseIndent();
+        dc.indent();
+        dc.getPs().print("HostPropertiesReply\n");
+        dc.increaseIndent();
         int retVal= 0;
         // write header
-        if ( header != null ) {dc.indent();dc.getPs().println("header") ;retVal +=header.dump(dc);}
+        if ( header != null ) {
+            dc.indent();
+            dc.getPs().println("header") ;
+            retVal +=header.dump(dc);
+        }
         // write length
-        dc.indent();dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
+        dc.indent();
+        dc.getPs().println("length="+length+"(0x"+ Integer.toHexString(length) + ")" );
         // write hpr
-        { ArrayList<HostPropertiesReplyMsg> temp1 = hpr;for (int iIdx=0; iIdx < temp1.getCount() ; iIdx++){     HostPropertiesReplyMsg element    = temp1.get(iIdx); dc.indent(); dc.getPs().println(iIdx);    if ( element != null ) {dc.indent();dc.getPs().println("element") ;retVal +=element.dump(dc);}}}
-dc.decreaseIndent();
+        {
+            ArrayList<HostPropertiesReplyMsg> temp1 = hpr;
+            for (int iIdx=0; iIdx < temp1.getCount() ; iIdx++) {
+                HostPropertiesReplyMsg element    = temp1.get(iIdx);
+                dc.indent();
+                dc.getPs().println(iIdx);
+                if ( element != null ) {
+                    dc.indent();
+                    dc.getPs().println("element") ;
+                    retVal +=element.dump(dc);
+                }
+            }
+        }
+        dc.decreaseIndent();
         return retVal;
     }
 
 
-        // Getter for header
+    // Getter for header
     //public APDUHeader getHeader()
     //{
     //    return header ;
     //}
 
-    
+
     // Setter for header
     //public void setHeader(APDUHeader val)
     //{
@@ -127,7 +171,7 @@ dc.decreaseIndent();
     //    return length ;
     //}
 
-    
+
     // Setter for length
     //public void setLength(short val)
     //{
@@ -139,7 +183,7 @@ dc.decreaseIndent();
     //    return hpr ;
     //}
 
-    
+
     // Setter for hpr
     //public void setHpr(ArrayList<HostPropertiesReplyMsg> val)
     //{
@@ -149,40 +193,44 @@ dc.decreaseIndent();
 
     public int addToHpr(HostPropertiesReplyMsg val)
     {
-            hpr.add(val); return hpr.size();
+        hpr.add(val);
+        return hpr.size();
     }
-    
-    
+
+
     public int removeFromHpr(HostPropertiesReplyMsg val)
     {
-            hpr.remove(val); return hpr.size();
+        hpr.remove(val);
+        return hpr.size();
     }
-    
-    
+
+
     public int removeNthFromHpr(int idx)
     {
-            hpr.remove(idx); return hpr.size();
+        hpr.remove(idx);
+        return hpr.size();
     }
-    
-    
+
+
     public int emptyHpr(int idx)
     {
-            hpr.clear(); return hpr.size();
+        hpr.clear();
+        return hpr.size();
     }
-    
-    
+
+
     public int getSize() throws IOException
     {
-       DataOutputStream dos= new DataOutputStream(new NullStream());
-       return this.write(dos);
+        DataOutputStream dos= new DataOutputStream(new NullStream());
+        return this.write(dos);
     }
-    
-        
-     public void setHeader(APDUHeader header)
+
+
+    public void setHeader(APDUHeader header)
     {
-         this.header= header;   
+        this.header= header;
     }
-    
+
     public APDUHeader getHeader()
     {
         return this.header;
