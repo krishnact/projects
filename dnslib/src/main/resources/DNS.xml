@@ -1,0 +1,23 @@
+<msgs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../src/main/resources/resources/msgs.xsd" 
+	packageName="org.himalay.dns">
+	<msg type="DNSQuery" package="org.himalay.dns">
+		<ui16 name="txnId" />
+		<bitField name="flags" size="2">
+			<bits mask="1000 0000 0000 0000" name="response"/>
+			<bits mask="0111 0000 0000 0000" name="opcode"/>
+			<bits mask="0000 0010 0000 0000" name="truncated"/>
+			<bits mask="0000 0001 0000 0000" name="recursionDesired"/>
+			<bits mask="0000 0000 1000 0000" name="recursionAvilable"/>
+			<bits mask="0000 0000 0100 0000" name="reserved"/>
+			<bits mask="0000 0000 0010 0000" name="ansAuthenticated"/>
+			<bits mask="0000 0000 0001 0000" name="nonAuthData"/>
+			<bits mask="0000 0000 0000 1111" name="replyCode"/>
+		</bitField>
+		<ui16 name="questions"></ui16>
+		<ui16 name="answerRrs"></ui16>
+		<ui16 name="authorityRrs"></ui16>
+		<ui16 name="additionalRrs"></ui16>
+		<byteArray name="queriesAndAnswers" length="EOS"/>
+	</msg>
+</msgs>
