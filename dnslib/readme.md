@@ -5,7 +5,7 @@ BinMsg Tutorial : MDNS
 BinMsg lets you define complex binary messages easily and generate Java/C++/C code to read write and dump them quickly. 
 In this tutorial we are going to define MDNS protocol and parse it on a windows PC. These messages are sent by Apple devices and if you have any apple devices then you can see them in your network being sent to 224.0.0.251:5353.
 
-A Wirekshark Capture of the data in this [image](https://raw.githubusercontent.com/krishnact/projects/master/dnslib/samples/mdns.jpg)
+A Wirekshark Capture of the data in this [image](https://raw.githubusercontent.com/krishnact/projects/master/dnslib/samples/mdns.png)
 
 First Iteration
 ----------------
@@ -45,7 +45,7 @@ Now lets define this message in BinMsg definition file. This xml content follows
 		<ui16 name="additionalRrs"></ui16>
 		<byteArray name="queriesAndAnswers" length="EOS"/>
 	</msg>
-</msgs>
+    </msgs>
 
 #### <i class="icon-pencil"></i> Compiling and running
 Now visit [BinMsg UI](http://binmsgui.appspot.com/ide/ide.html) and paste the above XML content into the input text box and press compile button. After few seconds the Output tab will slide and it will have links for pom.xml and the Java code. Create a folder on machine and then create the file structure exactly as shown in the output tab, starting from your location. If you create a folder **C:\tmp\dnslib** for this tutorial then the pom.xml should be at **C:\tmp\dnslib\pom.xml**.
