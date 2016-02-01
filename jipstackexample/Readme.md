@@ -108,7 +108,7 @@ You need two separate machines for running these examples. In the examples below
 
 ## UDP client example
   In this example we create 16 sockets and uses them to send a message. It also receives the replies back and prints them. It can be tested against any UDP echo server program (for example http://www.cs.rpi.edu/~goldsd/docs/spring2014-csci4220/echo-server-udp.c.txt).
-```
+```java
 package org.himalay.jipstack.sample;
 
 import java.io.IOException;
@@ -272,7 +272,7 @@ class Handler implements UDPDataReceiveHandler {
 ## TCP client example
 This example is similar to UDP client example except here we use TCP instead of UDP. It can be tested against a TCP echo server program like https://gist.github.com/silv3rm00n/5821760.
 This example is not commented as verbosely as the UDP example since most of the steps are similar.
-```
+```java
 package org.himalay.jipstack.sample;
 
 import java.io.IOException;
