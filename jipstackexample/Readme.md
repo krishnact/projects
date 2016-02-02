@@ -1,14 +1,18 @@
 # Introduction.
-JipStack is an implementation of TCP/IP stack in Java. It accesses the underlying HW using pcap library and does not use host OS implementation of TCP/IP stack. JipStack is known to work on Windows and Linux.
+JipStack is an implementation of TCP/IP stack in Java. It accesses the underlying HW using pcap library and does not use the host OS implementation of TCP/IP stack. JipStack is known to work on Windows and Linux.
 
 - It supports arbitrary assignment of IP addresses.
 - It can support thousands of IP assignments per machine.
 - It provides implementation of TCP and UDP protocols for IPv4 and IPv6.
 - It has additional features to support very large number of open sockets. It provides data receive handlers such that the a handler can be specified for each socket. Upon receiving data, the handler is called thus there is no need to maintain a thread for each socket read.
-- It is geared towards low traffic with large number of open sockets or simulation of large number of IPs. We have tested it with simulating sixty thousand IPs on one machine and sending/receiving 500 packets per second. The number of IPs is limited by available RAM and packets per second is limited by available CPU.
+- It is geared towards low traffic with large number of open sockets or simulation of large number of IPs. We have tested it with simulating 60000 IPs on one machine and sending/receiving 500 packets per second. The number of IPs is limited by available RAM and packets per second is limited by available CPU.
+
+# Software stack
+As shown in the following block diagram, the JNI TCP/IP layer of Java VM is replaced by JipStack.
+![block-diagram](https://cdn.rawgit.com/krishnact/projects/master/jipstackexample/docs/stack.svg)
 
 # Including in your project.
-Add following sections in your pom file to include the repository.
+Add following sections in your pom.xml file to include the binmsg dependency:
 add a repository:
 ```
     <repositories>
@@ -50,7 +54,7 @@ fe80::4ee6:76ff:fec4:699e      		4c-e6-76-c4-69-9e
 fe80:0:0:0:6ef0:49ff:fe0e:b2c3 		6c-f0-49-0e-b2-c3
 ```
 ## config.properties
-This file has configuration variable for configuring JipStack. Additional configuration values to configure your app can also be added in this file if needed. A Sample is shown below.
+This file has configuration variables for configuring JipStack. Additional configuration values to configure your app can also be added in this file if needed. A Sample is shown below.
 ```
 # MAC address of the Ethernet adapter
 MY_LOCAL_ETHERNET_ADDRESS=00-24-D7-7B-2D-B4
@@ -102,12 +106,12 @@ log4j.appender.FILE.layout.ConversionPattern=%d [%t] %-5p %c - %m%n
 ```
 
 # Examples
-Each of these examples show creation of 16 clients in app. Each client has its own IP address. In these examples we are pickings IPs that belong the same subnet as the native IP of the host machine so that you do not have add any new routes for testing. If you need to create more IPs (e.g. thousands of IPs), we suggest using a new subnet for them. You will have to set your host IP as the gateway for that subnet and omit from adding into ARP Pool.
+Each of these examples show creation of 16 clients in the app. Each client has its own IP address. In these examples, we are pickings IPs that belong to the same subnet as the native IP of the host machine so that you do not have add any new routes for testing. If you need to create more IPs (e.g. thousands of IPs), we suggest using a new subnet for them. You will have to set your host IP as the gateway for that subnet and omit from adding into ARP Pool.
 
-You need two separate machines for running these examples. In the examples below, JipStack runs on Windows 7 and the echo server runs on Linux.
+You need two separate machines for running these examples. In the examples below, JipStack runs on WIndows 7 and the echo server runs on Linux.
 
 ## UDP client example
-  In this example we create 16 sockets and uses them to send a message. It also receives the replies back and prints them. It can be tested against any UDP echo server program (for example http://www.cs.rpi.edu/~goldsd/docs/spring2014-csci4220/echo-server-udp.c.txt).
+In this example, we create 16 sockets and use them to send a message. It also receives the replies back and prints them. It can be tested against any UDP echo server program (for example http://www.cs.rpi.edu/~goldsd/docs/spring2014-csci4220/echo-server-udp.c.txt). 
 ```java
 package org.himalay.jipstack.sample;
 
